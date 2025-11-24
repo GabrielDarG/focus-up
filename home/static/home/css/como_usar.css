@@ -1,0 +1,111 @@
+/* static/home/css/como_usar.css */
+
+.guide-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.guide-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.guide-header h1 {
+    font-size: 2.5rem;
+    color: var(--cor-primaria); 
+    margin-bottom: 0.5rem;
+}
+
+.guide-header p {
+    font-size: 1.1rem;
+    color: var(--cor-texto-secundario);
+}
+
+/* GRID DE CARDS */
+.guide-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.guide-card {
+    background-color: #2a2f42;
+    border: 1px solid var(--cor-borda);
+    border-radius: 16px;
+    padding: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.guide-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    border-color: var(--cor-primaria);
+}
+
+/* Ícones Numerados */
+.step-number {
+    background: var(--gradiente-moderno);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 0 10px rgba(90, 72, 245, 0.5);
+}
+
+.card-content h3 {
+    color: var(--cor-destaque);
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+}
+
+.card-content p {
+    color: var(--cor-texto-secundario);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.highlight {
+    color: #fff;
+    font-weight: 600;
+}
+
+.coins-text {
+    color: #ffc93e;
+    font-weight: bold;
+}
+
+/* Seção Final */
+.guide-footer {
+    text-align: center;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    padding: 2rem;
+    background: rgba(90, 72, 245, 0.1);
+    border-radius: 16px;
+    border: 1px solid var(--cor-primaria);
+}
+
+.guide-footer h2 {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+    .guide-grid {
+        grid-template-columns: 1fr 1fr; 
+    }
+    .guide-card:first-child {
+        grid-column: 1 / -1;
+    }
+}

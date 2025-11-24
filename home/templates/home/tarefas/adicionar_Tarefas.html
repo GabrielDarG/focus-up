@@ -1,0 +1,112 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Gerenciar Tarefas - FocusUP{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'home/css/estiloaddtarefa.css' %}?v=5" />
+{% endblock extra_head %}
+
+{% block content %}
+    <div class="container-add-tarefa"
+         data-ajax-url-salvar-recorrencia="{% url 'home:salvar_recorrencia' %}"
+         data-csrf-token="{{ csrf_token }}"
+         
+         data-url-criar="{% url 'home:adicionar_Tarefas' %}"
+    >
+
+        <h1>Gerenciar Tarefas Pessoais</h1>
+        <p class="subtitulo-pagina">
+            Aqui você cria suas tarefas pessoais (recorrentes ou não) 
+            que vão preencher seus 3 slots diários.
+        </p>
+
+        <section class="secao-card">
+            <h2 class="titulo-secao" id="form-tarefa-titulo">Criar Nova Tarefa Pessoal</h2>
+    
+            <form method="POST" id="form-tarefa" action="{% url 'home:adicionar_Tarefas' %}">
+                {% csrf_token %}
+                
+                <div class="campo-form">
+                    {{ form.titulo.label_tag }}
+                    {{ form.titulo }}
+                    {% if form.titulo.errors %}<div class="erro-campo">{{ form.titulo.errors }}</div>{% endif %}
+                </div>
+                
+                <div class="campo-form">
+                    {{ form.foco.label_tag }}
+                    {{ form.foco }}
+                    {% if form.foco.errors %}<div class="erro-campo">{{ form.foco.errors }}</div>{% endif %}
+                </div>
+                
+                <div class="campo-form">
+                    {{ form.descricao.label_tag }}
+                    {{ form.descricao }}
+                    {% if form.descricao.errors %}<div class="erro-campo">{{ form.descricao.errors }}</div>{% endif %}
+                </div>
+                
+                <button type="submit" class="botao-destaque" id="form-tarefa-submit-btn">Criar Tarefa na Lista</button>
+                
+                <button type="button" class="cancel-link-form" id="form-tarefa-cancel-btn" style="display: none;">
+                    Cancelar Edição
+                </button>
+            </form>
+        </section>
+
+
+        <section class="secao-card">
+            <h2 class="titulo-secao">Minhas Tarefas Pessoais Criadas</h2>
+            <p class="subtitulo-secao">
+                Defina a recorrência para que o sistema possa sortear
+                suas 3 tarefas diárias.
+            </p>
+
+            <ul class="lista-recorrencia" id="lista-recorrencia">
+                
+                {% for tarefa in tarefas_pessoais_list %}
+                <li class="item-recorrencia" data-tarefa-id="{{ tarefa.id_Tarefa }}">
+                    
+                    <div class="item-info">
+                        <span class="item-titulo">{{ tarefa.titulo }}</span>
+                        
+                        <a href="{% url 'home:editar_tarefa_pessoal' tarefa.id_Tarefa %}" 
+                           class="botao-editar-tarefa" 
+                           data-action="editar-tarefa">Editar</a> 
+                    </div>
+
+                    <div class="dropdown-recorrencia">
+                        <button class="botao-recorrencia" data-action="toggle-recorrencia">
+                            {{ tarefa.get_dias_recorrencia_display|default:"Definir recorrência" }}
+                        </button>
+                        
+                        <div class="recorrencia-dropdown-menu">
+                            <label><input type="checkbox" name="dom" data-dia="Dom" {% if tarefa.recorrente_dom %}checked{% endif %}> Domingo</label>
+                            <label><input type="checkbox" name="seg" data-dia="Seg" {% if tarefa.recorrente_seg %}checked{% endif %}> Segunda</label>
+                            <label><input type="checkbox" name="ter" data-dia="Ter" {% if tarefa.recorrente_ter %}checked{% endif %}> Terça</label>
+                            <label><input type="checkbox" name="qua" data-dia="Qua" {% if tarefa.recorrente_qua %}checked{% endif %}> Quarta</label>
+                            <label><input type="checkbox" name="qui" data-dia="Qui" {% if tarefa.recorrente_qui %}checked{% endif %}> Quinta</label>
+                            <label><input type="checkbox" name="sex" data-dia="Sex" {% if tarefa.recorrente_sex %}checked{% endif %}> Sexta</label>
+                            <label><input type="checkbox" name="sab" data-dia="Sáb" {% if tarefa.recorrente_sab %}checked{% endif %}> Sábado</label>
+                        </div>
+                    </div>
+                </li>
+                {% empty %}
+                <li class="item-recorrencia-vazia">
+                    <p>Você ainda não criou nenhuma tarefa pessoal.</p>
+                    <p>Crie uma no formulário acima para definir a recorrência.</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+
+
+        <a href="{% url 'home:lista_Tarefas' %}" class="cancel-link">
+            &larr; Voltar para a lista de tarefas
+        </a>
+
+    </div>
+{% endblock content %}
+
+{% block extra_scripts %}
+    <script src="{% static 'home/js/adicionar_Tarefas.js' %}?v=5"></script>
+{% endblock extra_scripts %}

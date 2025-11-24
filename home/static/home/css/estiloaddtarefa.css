@@ -1,0 +1,418 @@
+/* --- Variáveis (importadas do estilohome.css) --- */
+:root {
+    --cor-fundo: #161a25;
+    --cor-secao: #1f2333;
+    --cor-texto-principal: #f8f9fa;
+    --cor-texto-secundario: #a9b1d6;
+    --cor-borda: #343b58;
+    --cor-primaria: #5a48f5;
+    --cor-destaque: #ffc93e;
+    --cor-texto-preto: #212529;
+    --cor-branco: #ffffff;
+    --cor-sucesso: #28a745;
+    --cor-erro: #e74c3c; 
+}
+
+/* --- Container Principal --- */
+.container-add-tarefa {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; 
+}
+
+.container-add-tarefa h1 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    color: var(--cor-texto-principal);
+    font-size: 2.25rem;
+    margin-bottom: 0.25rem;
+    text-align: left;
+}
+.subtitulo-pagina {
+    font-family: "Lato", sans-serif;
+    color: var(--cor-texto-secundario);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+
+/* --- Estilo de Card Padrão (para IA e Manual) --- */
+.secao-card {
+    background-color: var(--cor-secao);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+}
+
+.titulo-secao {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    color: var(--cor-primaria);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+.subtitulo-secao {
+    font-family: "Lato", sans-serif;
+    color: var(--cor-texto-secundario);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--cor-borda);
+    text-align: left;
+}
+
+
+/* --- Estilos Comuns de Botão --- */
+.botao-destaque {
+    display: inline-block;
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+    background-color: var(--cor-destaque);
+    color: var(--cor-texto-preto);
+}
+.botao-destaque:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(255, 201, 62, 0.4);
+}
+
+
+.cancel-link-form {
+    display: inline-block;
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--cor-texto-secundario);
+    margin-top: 0.75rem; 
+    transition: all 0.2s ease;
+}
+.cancel-link-form:hover {
+    background-color: var(--cor-fundo);
+    border-color: var(--cor-texto-secundario);
+    color: var(--cor-texto-principal);
+}
+
+
+
+/* --- Seção Manual (Formulário) --- */
+#form-tarefa {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.campo-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo-form label, .campo-form .label-tag {
+    display: block;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: var(--cor-texto-secundario);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.campo-form input[type="text"],
+.campo-form input[type="time"],
+.campo-form input[type="number"],
+.campo-form textarea,
+.campo-form select {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-family: "Lato", sans-serif;
+    font-size: 1rem;
+    color: var(--cor-texto-principal);
+    background-color: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.campo-form input:focus,
+.campo-form textarea:focus,
+.campo-form select:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 3px rgba(90, 72, 245, 0.2);
+}
+
+.campo-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+
+.form-row {
+    display: flex;
+    gap: 1.25rem;
+}
+.form-row .campo-form {
+    flex: 1;
+}
+
+.erro-campo, .form-error {
+    color: var(--cor-erro);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+.help-text {
+    font-size: 0.85rem;
+    color: var(--cor-texto-secundario);
+    margin-top: 0.5rem;
+    display: block;
+}
+
+.lista-recorrencia {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.item-recorrencia {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--cor-borda);
+}
+.item-recorrencia:last-child {
+    border-bottom: none;
+}
+.item-titulo {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--cor-texto-principal);
+}
+.botao-recorrencia, .botao-recorrencia-vazio {
+    background-color: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto-secundario);
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.botao-recorrencia:hover, .botao-recorrencia-vazio:hover {
+    border-color: var(--cor-primaria);
+    color: var(--cor-primaria);
+}
+.botao-recorrencia-vazio {
+    color: var(--cor-destaque);
+    border-color: var(--cor-destaque);
+}
+
+
+/* --- MUDANÇA: Link Cancelar (Botão Voltar) --- */
+.cancel-link {
+    display: inline-block; 
+    width: auto; 
+    padding: 0.85rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    text-align: center; 
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    background-color: var(--cor-destaque);
+    color: var(--cor-texto-preto);
+    margin-top: 1.5rem;
+}
+.cancel-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(255, 201, 62, 0.4);
+    color: var(--cor-texto-preto);
+}
+
+
+@media (max-width: 768px) {
+    .container-add-tarefa {
+        margin: 1.5rem auto;
+        padding: 0 0.5rem;
+    }
+    .container-add-tarefa h1 {
+        font-size: 1.75rem;
+    }
+    .secao-card {
+        padding: 1.5rem 1.25rem;
+    }
+    .titulo-secao {
+        font-size: 1.25rem;
+    }
+    .form-row {
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+}
+
+/* NOVOS ESTILOS: Lista de Recorrência */
+.lista-recorrencia {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.item-recorrencia {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--cor-borda);
+}
+.item-recorrencia:last-child {
+    border-bottom: none;
+}
+
+.item-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-grow: 1;
+}
+.item-titulo {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--cor-texto-principal);
+}
+.botao-editar-tarefa {
+    font-family: "Lato", sans-serif;
+    font-size: 0.8rem;
+    color: var(--cor-texto-secundario);
+    text-decoration: none;
+    font-weight: 600;
+}
+.botao-editar-tarefa:hover {
+    color: var(--cor-destaque);
+    text-decoration: underline;
+}
+
+
+.dropdown-recorrencia {
+    position: relative; 
+    flex-shrink: 0; 
+}
+.botao-recorrencia {
+    background-color: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto-secundario);
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.botao-recorrencia:hover,
+.dropdown-recorrencia.is-open .botao-recorrencia {
+    border-color: var(--cor-primaria);
+    color: var(--cor-primaria);
+}
+
+.botao-recorrencia:not(:hover):has(+.recorrencia-dropdown-menu:not(:has(:checked))) {
+    color: var(--cor-destaque);
+    border-color: var(--cor-destaque);
+}
+
+
+.recorrencia-dropdown-menu {
+    display: none; 
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--cor-secao);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    padding: 0.75rem;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    width: 180px; 
+    margin-top: 0.5rem;
+}
+
+.dropdown-recorrencia.is-open .recorrencia-dropdown-menu {
+    display: block;
+}
+
+.recorrencia-dropdown-menu label {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    font-family: "Lato", sans-serif;
+    color: var(--cor-texto-secundario);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+.recorrencia-dropdown-menu label:hover {
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto-principal);
+}
+.recorrencia-dropdown-menu label input {
+    margin-right: 0.75rem;
+    accent-color: var(--cor-primaria);
+}
+
+/* Mensagem de Lista Vazia */
+.item-recorrencia-vazia {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--cor-texto-secundario);
+    font-style: italic;
+}
+.item-recorrencia-vazia p:first-child {
+    font-weight: 600;
+    color: var(--cor-texto-principal);
+}
+
+
+@media (max-width: 768px) {
+    .item-recorrencia {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    .item-info {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .dropdown-recorrencia {
+        width: 100%;
+    }
+    .botao-recorrencia {
+        width: 100%;
+    }
+    .recorrencia-dropdown-menu {
+        width: 100%; 
+    }
+}

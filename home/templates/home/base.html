@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}FocusUP{% endblock %}</title>
+
+    {# --- FONTES --- #}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet"
+    />
+
+    {# --- ÍCONES BOOTSTRAP --- #}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    {# --- CSS PRINCIPAL --- #}
+    <link rel="stylesheet" href="{% static 'home/css/estilohome.css' %}?v=9" />
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+    {# --- CABEÇALHO COMPLETO --- #}
+    <header class="cabecalho-principal">
+        <div class="container-cabecalho">
+            
+            <a href="{% url 'home:home' %}" class="logo">
+                <img src="{% static 'home/img/LogoOFC.png' %}" alt="FocusUP Logo">
+            </a>
+            
+            {# --- 1. MENU DESKTOP --- #}
+            <div class="menu-desktop-container">
+                <nav class="navegacao-principal">
+                    <ul>
+                        <li><a href="{% url 'home:home' %}" {% if request.resolver_match.url_name == 'home' %}class="ativo"{% endif %}>Painel</a></li>
+                        <li><a href="{% url 'home:lista_Tarefas' %}" {% if request.resolver_match.url_name == 'lista_Tarefas' %}class="ativo"{% endif %}>Tarefas</a></li>
+                        
+                        <li><a href="{% url 'home:loja_view' %}" {% if request.resolver_match.url_name == 'loja_view' %}class="ativo"{% endif %}>Loja</a></li>
+                        <li><a href="{% url 'home:inventario_view' %}" {% if request.resolver_match.url_name == 'inventario_view' %}class="ativo"{% endif %}>Mochila</a></li>
+
+                        <li><a href="{% url 'home:listar_amigos' %}" {% if request.resolver_match.url_name == 'listar_amigos' or request.resolver_match.url_name == 'buscar_usuarios' %}class="ativo"{% endif %}>Amigos</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="moedas-header">
+                    <i class="bi bi-coin"></i> 
+                    <span class="qtd-moedas-display">{{ user.moedas }}</span>
+                </div>
+
+                <button class="profile-avatar perfil-foto-container" id="profile-dropdown-trigger" aria-label="Abrir menu do perfil" aria-expanded="false" tabindex="0">
+                    
+                    {# --- MOLDURA + COR DINÂMICA DESKTOP --- #}
+                    {% if user.avatar %}
+                        <img src="{{ user.avatar.url }}" alt="Avatar do Usuário" class="perfil-foto {{ user.get_moldura_ativa }} {{ user.get_cor_ativa }}">
+                    {% else %}
+                        <img src="{% static 'home/img/ue.png' %}" alt="Avatar Padrão" class="perfil-foto {{ user.get_moldura_ativa }} {{ user.get_cor_ativa }}">
+                    {% endif %}
+                    
+                    <span class="level-badge level-badge-display">
+                        {{ user.nivel|default:1 }}
+                    </span>
+                </button>
+            </div>
+
+            {# --- 2. BOTÃO HAMBÚRGUER (Mobile) --- #}
+            <button class="botao-menu-mobile" id="botao-menu-mobile" aria-label="Abrir menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+        </div>
+    </header>
+
+    {# --- 3. DROPDOWN DESKTOP --- #}
+    <div class="profile-dropdown" id="profile-dropdown">
+        <ul>
+            <li><a href="{% url 'home:editar_perfil' %}" {% if request.resolver_match.url_name == 'editar_perfil' %}class="ativo"{% endif %}>Meu Perfil</a></li> 
+            <li><a href="{% url 'home:meu_perfil' %}" {% if request.resolver_match.url_name == 'meu_perfil' %}class="ativo"{% endif %}>Perfil Focos</a></li>
+            
+            <li><a href="{% url 'home:estatisticas' %}" {% if request.resolver_match.url_name == 'estatisticas' %}class="ativo"{% endif %}>Estatistica Usuario</a></li>
+            
+            <li><a href="{% url 'home:como_usar' %}" {% if request.resolver_match.url_name == 'como_usar' %}class="ativo"{% endif %}>Como funciona o Focus UP</a></li>
+            
+            <li class="dropdown-divisor"><hr></li>
+            <li><a href="{% url 'home:logout' %}" class="dropdown-sair">Sair</a></li>
+        </ul>
+    </div>
+
+    {# --- 4. MENU MOBILE COMPLETO --- #}
+    <div class="menu-mobile-overlay" id="menu-mobile-overlay">
+        
+        <button class="profile-avatar-mobile perfil-foto-container" id="profile-dropdown-trigger-mobile" aria-label="Abrir menu do perfil" aria-expanded="false" tabindex="0">
+            
+            {# --- MOLDURA + COR DINÂMICA MOBILE --- #}
+            {% if user.avatar %}
+                <img src="{{ user.avatar.url }}" alt="Avatar do Usuário" class="perfil-foto {{ user.get_moldura_ativa }} {{ user.get_cor_ativa }}">
+            {% else %}
+                <img src="{% static 'home/img/ue.png' %}" alt="Avatar Padrão" class="perfil-foto {{ user.get_moldura_ativa }} {{ user.get_cor_ativa }}">
+            {% endif %}
+            
+            <span>{{ user.nome_usuario|default:user.email }}</span>
+            
+            <span class="level-badge level-badge-display">
+                {{ user.nivel|default:1 }}
+            </span>
+        </button>
+        
+        <div class="profile-dropdown-mobile" id="profile-dropdown-mobile">
+            <ul>
+                <li class="dropdown-saldo" style="padding: 10px 20px; font-weight: bold; color: #ffc93e;">
+                    <i class="bi bi-coin"></i> <span class="qtd-moedas-display">{{ user.moedas }}</span>
+                </li>
+                <li class="dropdown-divisor"><hr></li>
+
+                <li><a href="{% url 'home:editar_perfil' %}" {% if request.resolver_match.url_name == 'editar_perfil' %}class="ativo"{% endif %}>Meu Perfil</a></li>
+                <li><a href="{% url 'home:meu_perfil' %}" {% if request.resolver_match.url_name == 'meu_perfil' %}class="ativo"{% endif %}>Perfil Focos</a></li>
+                
+                <li><a href="{% url 'home:estatisticas' %}" {% if request.resolver_match.url_name == 'estatisticas' %}class="ativo"{% endif %}>Estatistica Usuario</a></li>
+                
+                <li><a href="{% url 'home:como_usar' %}" {% if request.resolver_match.url_name == 'como_usar' %}class="ativo"{% endif %}>Como funciona o Focus UP</a></li>
+            </ul>
+        </div>
+
+        <nav class="navegacao-mobile">
+            <ul>
+                <li><a href="{% url 'home:home' %}" {% if request.resolver_match.url_name == 'home' %}class="ativo"{% endif %}>Painel</a></li>
+                <li><a href="{% url 'home:lista_Tarefas' %}" {% if request.resolver_match.url_name == 'lista_Tarefas' %}class="ativo"{% endif %}>Tarefas</a></li>
+                
+                <li><a href="{% url 'home:loja_view' %}" {% if request.resolver_match.url_name == 'loja_view' %}class="ativo"{% endif %}>Loja</a></li>
+                <li><a href="{% url 'home:inventario_view' %}" {% if request.resolver_match.url_name == 'inventario_view' %}class="ativo"{% endif %}>Mochila</a></li>
+
+                <li><a href="{% url 'home:listar_amigos' %}" {% if request.resolver_match.url_name == 'listar_amigos' or request.resolver_match.url_name == 'buscar_usuarios' %}class="ativo"{% endif %}>Amigos</a></li>
+                
+                <li class="dropdown-divisor"><hr></li>
+                <li><a href="{% url 'home:logout' %}" class="dropdown-sair">Sair</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    {# --- REMOVIDO BLOCO DE MENSAGENS --- #}
+    
+    {% block content %}
+    {% endblock %}
+    
+    <script src="{% static 'home/js/homejs.js' %}"></script>
+    {% block extra_scripts %}{% endblock %}
+
+</body>
+</html>

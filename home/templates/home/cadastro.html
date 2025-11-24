@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro - FocusUP</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="{% static 'home/css/estilocadastro.css' %}?v=10" />
+  </head>
+  <body>
+    
+    <div class="fundo-brilho"></div>
+    <div class="fundo-grade"></div>
+
+    <div class="pagina-cadastro">
+        
+        <div class="cartao-cadastro" id="cartao-cadastro">
+            
+            <div class="cabecalho-cadastro">
+                <a href="{% url 'home:index' %}" class="logo-link">
+                    <img src="{% static 'home/img/LogoOFC.png' %}" alt="Logo FocusUP" class="img-logo" />
+                </a>
+                <h1 class="titulo-cadastro">Crie sua conta</h1>
+                <p class="subtitulo-cadastro">Comece sua jornada e evolua no FocusUP!</p>
+            </div>
+
+            {% if messages %}
+            <div class="container-mensagens">
+                {% for message in messages %}
+                <div class="mensagem {{ message.tags }}">
+                    <i class="bi bi-info-circle-fill"></i> {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="POST" novalidate class="form-cadastro">
+                {% csrf_token %}
+
+                <div class="grupo-form">
+                    <label for="{{ form.nome.id_for_label }}" class="rotulo-form">Nome Completo</label>
+                    <div class="input-wrapper">
+                        <i class="bi bi-person-vcard input-icone-esquerda"></i>
+                        {{ form.nome }}
+                    </div>
+                    {% if form.nome.errors %}
+                        <div class="alerta-erro">{{ form.nome.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="grupo-form">
+                    <label for="{{ form.nome_usuario.id_for_label }}" class="rotulo-form">Nome de Usuário</label>
+                    <div class="input-wrapper">
+                        <i class="bi bi-at input-icone-esquerda"></i>
+                        {{ form.nome_usuario }}
+                    </div>
+                    {% if form.nome_usuario.errors %}
+                        <div class="alerta-erro">{{ form.nome_usuario.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="grupo-form">
+                    <label for="{{ form.email.id_for_label }}" class="rotulo-form">E-mail</label>
+                    <div class="input-wrapper">
+                        <i class="bi bi-envelope input-icone-esquerda"></i>
+                        {{ form.email }}
+                    </div>
+                    {% if form.email.errors %}
+                        <div class="alerta-erro">{{ form.email.errors.0 }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="linha-dupla">
+                    <div class="grupo-form">
+                        <label for="{{ form.password1.id_for_label }}" class="rotulo-form">Senha</label>
+                        <div class="input-wrapper">
+                            <i class="bi bi-lock input-icone-esquerda"></i>
+                            {{ form.password1 }}
+                            <i class="bi bi-eye-slash input-icone-direita toggle-senha" data-target="{{ form.password1.id_for_label }}"></i>
+                        </div>
+                        {% if form.password1.errors %}
+                            <div class="alerta-erro">{{ form.password1.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="{{ form.password2.id_for_label }}" class="rotulo-form">Confirmar Senha</label>
+                        <div class="input-wrapper">
+                            <i class="bi bi-lock-fill input-icone-esquerda"></i>
+                            {{ form.password2 }}
+                            <i class="bi bi-eye-slash input-icone-direita toggle-senha" data-target="{{ form.password2.id_for_label }}"></i>
+                        </div>
+                        {% if form.password2.errors %}
+                            <div class="alerta-erro">{{ form.password2.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="linha-dupla">
+                    <div class="grupo-form">
+                        <label for="{{ form.sexo.id_for_label }}" class="rotulo-form">Sexo</label>
+                        <div class="input-wrapper">
+                            <i class="bi bi-gender-ambiguous input-icone-esquerda"></i>
+                            {{ form.sexo }}
+                        </div>
+                        {% if form.sexo.errors %}
+                            <div class="alerta-erro">{{ form.sexo.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="grupo-form">
+                        <label for="{{ form.data_nascimento.id_for_label }}" class="rotulo-form">Nascimento</label>
+                        <div class="input-wrapper">
+                            <i class="bi bi-calendar-event input-icone-esquerda"></i>
+                            {{ form.data_nascimento }}
+                        </div>
+                        {% if form.data_nascimento.errors %}
+                            <div class="alerta-erro">{{ form.data_nascimento.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-checkbox">
+                    <input type="checkbox" name="termos" id="termos" required />
+                    <label for="termos">
+                        Li e aceito os <a href="/termos" class="link-destaque" target="_blank">Termos de Uso</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="botao-cadastrar">
+                    Criar Conta <i class="bi bi-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="rodape-cadastro">
+                <p>Já possui uma conta? <a href="{% url 'home:login' %}" class="link-destaque">Entrar</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'home/js/login_animation.js' %}?v=2"></script>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Como Jogar - FocusUP{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'home/css/como_usar.css' %}?v=1" />
+{% endblock %}
+
+{% block content %}
+<div class="guide-container">
+
+    <div class="guide-header">
+        <h1>Guia do Aventureiro</h1>
+        <p>Entenda como o FocusUP transforma sua rotina em um RPG.</p>
+    </div>
+
+    <div class="guide-grid">
+
+        <div class="guide-card">
+            <div class="step-number">1</div>
+            <div class="card-content">
+                <h3>O Objetivo</h3>
+                <p>O FocusUP serve para te manter focado na sua rotina, seja nos estudos, trabalho ou afazeres domésticos.</p>
+                <p>Tudo começa na página <span class="highlight">"Perfil Focos"</span>. Lá você cadastra seus interesses e objetivos. Nossa Inteligência Artificial (Ollama) lerá essas informações para criar missões personalizadas para você.</p>
+            </div>
+        </div>
+
+        <div class="guide-card">
+            <div class="step-number">2</div>
+            <div class="card-content">
+                <h3>Missões Diárias (IA)</h3>
+                <p>Todo dia, o sistema gera automaticamente <span class="highlight">6 tarefas exclusivas</span> baseadas nos focos que você criou.</p>
+                <p>Essas são suas "Quests Principais". Elas renovam a cada 24 horas, então aproveite para concluí-las!</p>
+            </div>
+        </div>
+
+        <div class="guide-card">
+            <div class="step-number">3</div>
+            <div class="card-content">
+                <h3>Tarefas Pessoais & Recorrência</h3>
+                <p>Você pode criar seus próprios hábitos em "Gerenciar Tarefas". Defina os dias da semana (ex: Seg, Qua, Sex) que elas devem aparecer.</p>
+                <p><strong>Atenção ao Limite:</strong> Você tem <span class="highlight">3 Slots Pessoais</span> por dia.</p>
+                <p><em>Exemplo:</em> Se você criou 5 tarefas para cair na segunda-feira, o sistema sorteará apenas 3 aleatoriamente para você jogar naquele dia.</p>
+            </div>
+        </div>
+
+        <div class="guide-card">
+            <div class="step-number">4</div>
+            <div class="card-content">
+                <h3>Slots e Ajuda Extra</h3>
+                <p>Precisa de mais espaço? Na <span class="highlight">Loja</span>, você pode comprar upgrades para ter até <strong>+3 slots extras</strong>.</p>
+                <p>Se em algum dia você não tiver tarefas recorrentes agendadas, você pode usar o botão de <strong>"Sugestão Rápida"</strong> na lista de tarefas. A IA vai criar uma tarefa na hora e, se você aceitar, ela ocupará um dos seus slots manuais.</p>
+            </div>
+        </div>
+
+        <div class="guide-card">
+            <div class="step-number">5</div>
+            <div class="card-content">
+                <h3>Recompensas</h3>
+                <p>Cada tarefa concluída te dá:</p>
+                <ul style="list-style: none; margin-top: 0.5rem;">
+                    <li>⭐ <strong>XP Variável:</strong> Para subir de nível.</li>
+                    <li>💰 <span class="coins-text">100 Moedas:</span> Fixo por tarefa.</li>
+                </ul>
+                <p style="margin-top: 0.5rem;">Use suas moedas na <strong>Loja</strong> para comprar molduras exclusivas, cores para seu perfil e itens mágicos como o Congelador de Ofensiva.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="guide-footer">
+        <h2>Pronto para começar?</h2>
+        <a href="{% url 'home:home' %}" class="botao-destaque" style="font-size: 1.2rem; padding: 1rem 2rem;">Ir para o Painel</a>
+    </div>
+
+</div>
+{% endblock %}

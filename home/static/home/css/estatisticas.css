@@ -1,0 +1,279 @@
+/* =========================================== */
+/* ESTILOS DA PÁGINA DE ESTATÍSTICAS (FocusUP) */
+/* =========================================== */
+
+/* --- Layout Geral --- */
+.stats-container {
+    max-width: 1400px; 
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+.titulo-stats {
+    font-size: 2rem;
+    color: var(--cor-primaria);
+    margin-bottom: 2rem;
+    font-weight: 800;
+}
+
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px; 
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+
+.stat-card {
+    background-color: #2a2f42;
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border: 1px solid var(--cor-borda);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--cor-primaria);
+}
+
+.stat-valor {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--cor-destaque);
+    display: block;
+    margin-bottom: 0.5rem;
+    font-family: "Poppins", sans-serif;
+    line-height: 1.1;
+}
+
+.stat-legenda {
+    color: var(--cor-texto-secundario);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* --- Seções (Gráficos e Ranking) --- */
+.leaderboard-section {
+    background-color: var(--cor-secao);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid var(--cor-borda);
+    margin-bottom: 2.5rem;
+}
+
+.leaderboard-section h2 {
+    color: var(--cor-texto-principal);
+    border-bottom: 1px solid var(--cor-borda);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+}
+
+/* --- Lista de Ranking (Top 3) --- */
+.leaderboard-list {
+    list-style: none;
+}
+
+.leaderboard-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.2rem;
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+/* Pódio */
+.leaderboard-item.podium-1 { border: 1px solid #FFD700; background: rgba(255, 215, 0, 0.05); }
+.leaderboard-item.podium-2 { border: 1px solid #C0C0C0; background: rgba(192, 192, 192, 0.05); }
+.leaderboard-item.podium-3 { border: 1px solid #CD7F32; background: rgba(205, 127, 50, 0.05); }
+
+.friend-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.rank-number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    width: 30px;
+    color: var(--cor-texto-secundario);
+    text-align: center;
+}
+
+/* Avatar no Ranking */
+.leaderboard-avatar-container {
+    width: 45px;
+    height: 45px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none; 
+    padding: 0;
+}
+
+.leaderboard-avatar-container .perfil-foto {
+    width: 45px !important;
+    height: 45px !important;
+}
+
+.nome-amigo {
+    font-size: 1.1rem;
+    color: var(--cor-texto-principal);
+    display: block;
+}
+
+.nivel-amigo {
+    font-size: 0.8rem;
+    color: var(--cor-texto-secundario);
+}
+
+.xp-badge {
+    background-color: var(--cor-primaria);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* --- COLUNA DA DIREITA (IA Review) --- */
+.ai-review-section {
+    background: linear-gradient(135deg, #2a2f42 0%, #1f2333 100%);
+    border: 1px solid var(--cor-borda);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: sticky;
+    top: 100px; 
+    height: fit-content;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.ai-review-header {
+    margin-bottom: 1.5rem;
+}
+
+.ai-avatar-glow {
+    width: 80px;
+    height: 80px;
+    background: rgba(90, 72, 245, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem auto;
+    border: 2px solid var(--cor-primaria);
+    box-shadow: 0 0 15px rgba(90, 72, 245, 0.3);
+}
+
+.ai-icon {
+    font-size: 2rem;
+    color: var(--cor-primaria);
+}
+
+.ai-title {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    color: var(--cor-texto-principal);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Botão de Gerar Review */
+.btn-gerar-review {
+    background: var(--gradiente-moderno);
+    border: none;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+    font-family: "Poppins", sans-serif;
+}
+
+.btn-gerar-review:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(90, 72, 245, 0.4);
+}
+
+.btn-gerar-review:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Caixa de Resultado do Review */
+.ai-result-container {
+    margin-top: 1.5rem;
+    text-align: left;
+    font-style: italic;
+    color: var(--cor-texto-secundario);
+    line-height: 1.5;
+    background: rgba(0,0,0,0.2);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--cor-destaque);
+    display: none;
+    width: 100%;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 992px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr; 
+    }
+    
+    .ai-review-section {
+        position: static; 
+        order: -1; 
+        margin-bottom: 2rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr 1fr; 
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-grid {
+        grid-template-columns: 1fr; 
+    }
+    
+    .leaderboard-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .friend-info {
+        width: 100%;
+    }
+    
+    .xp-badge {
+        align-self: flex-end;
+    }
+}

@@ -1,0 +1,126 @@
+{% extends 'home/base.html' %} 
+{% load static %} 
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'home/css/estiloamigos.css' %}?v=8" />
+{% endblock %} 
+
+{% block content %}
+<div class="container-amigos">
+  <section class="secao">
+    
+    {% if messages %} 
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %} 
+    {% endif %}
+
+    <h1>Meus Amigos</h1>
+
+    <div class="amigos-toggle-container">
+      <button class="amigos-toggle-btn active" data-target="#secao-meus-amigos">
+        Meus Amigos ({{ amigos|length }})
+      </button>
+      <button class="amigos-toggle-btn" data-target="#secao-pedidos-pendentes">
+        Pedidos Pendentes ({{ pedidos|length }})
+      </button>
+    </div>
+
+    <a
+      href="{% url 'home:buscar_usuarios' %}"
+      class="botao-link botao-destaque"
+    >
+      Encontrar Novos Amigos
+    </a>
+
+    <hr class="divisor-amigos" />
+
+    <div id="secao-meus-amigos" class="amigos-secao-conteudo active">
+      {% if amigos %}
+      <div class="lista-amigos-container">
+        {% for amigo in amigos %}
+        <div class="amigo-card">
+          <div class="amigo-info">
+            <span class="amigo-nome">{{ amigo.nome_usuario }}</span>
+            <span class="amigo-xp">XP: {{ amigo.xp_atual|default:"0" }}</span>
+          </div>
+          <div class="amigo-acoes">
+            <a
+              href="{% url 'home:ver_perfil_usuario' amigo.nome_usuario %}"
+              class="botao-link botao-comparar"
+            >
+              Ver Perfil
+            </a>
+            <form
+              action="{% url 'home:remover_amigo' amigo.nome_usuario %}"
+              method="POST"
+              class="form-remover-amigo"
+            >
+              {% csrf_token %}
+              <button
+                type="submit"
+                class="botao-link botao-perigo"
+                onclick="return confirm('Tem certeza que deseja remover {{ amigo.nome_usuario }}?');"
+              >
+                Remover
+              </button>
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="sem-resultados" style="margin-top: 1rem">
+        Você ainda não tem amigos.
+      </p>
+      {% endif %}
+    </div>
+
+    <div id="secao-pedidos-pendentes" class="amigos-secao-conteudo">
+      {% if pedidos %}
+      <div class="lista-pedidos-container">
+        {% for pedido in pedidos %}
+        <div class="pedido-card">
+          <span class="pedido-nome">
+            {{ pedido.de_usuario.nome_usuario }}
+          </span>
+          <div class="pedido-acoes">
+            <form
+              action="{% url 'home:aceitar_pedido_amizade' pedido.id %}"
+              method="POST"
+              class="form-pedido"
+            >
+              {% csrf_token %}
+              <button type="submit" class="botao-link botao-sucesso">
+                Aceitar
+              </button>
+            </form>
+            <form
+              action="{% url 'home:recusar_remover_amizade' pedido.id %}"
+              method="POST"
+              class="form-pedido"
+            >
+              {% csrf_token %}
+              <button
+                type="submit"
+                class="botao-link botao-perigo"
+                onclick="return confirm('Tem certeza que deseja recusar?');"
+              >
+                Recusar
+              </button>
+            </form>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="sem-resultados">Você não tem pedidos de amizade pendentes.</p>
+      {% endif %}
+    </div>
+  </section>
+</div>
+{% endblock %} 
+
+{% block extra_scripts %}
+<script src="{% static 'home/js/amigos_toggle.js' %}?v=1"></script>
+{% endblock extra_scripts %}

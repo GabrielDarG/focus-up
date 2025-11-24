@@ -1,0 +1,90 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Loja - FocusUP{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'home/css/estiloloja.css' %}?v=10" />
+{% endblock extra_head %}
+
+{% block content %}
+<div class="loja-container">
+    
+    <header class="loja-header">
+        <h1>Mercador de Itens</h1>
+        <div class="saldo-display">
+            <span class="texto-saldo">Seu Saldo:</span>
+            <div class="valor-saldo">
+                <i class="bi bi-coin icone-moeda-header"></i> {{ moedas_usuario }}
+            </div>
+        </div>
+    </header>
+
+    {% if messages %}
+    <div class="mensagens-container">
+        {% for message in messages %}
+        <div class="mensagem {{ message.tags }}">
+            {% if message.tags == 'success' %}
+                <i class="bi bi-check-circle-fill"></i>
+            {% elif message.tags == 'error' %}
+                <i class="bi bi-exclamation-triangle-fill"></i>
+            {% else %}
+                <i class="bi bi-info-circle-fill"></i>
+            {% endif %}
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if secao_upgrades %}
+    <div class="secao-loja">
+        <h2 class="titulo-secao" style="color: var(--cor-primaria); margin: 2rem 0 1rem 0; border-bottom: 1px solid var(--cor-borda); padding-bottom: 0.5rem;">
+            <i class="bi bi-rocket-takeoff"></i> Melhorias & Utilitários
+        </h2>
+        <div class="grid-itens">
+            {% for item in secao_upgrades %}
+                {% include "home/loja/card_item_include.html" %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if secao_customizacao %}
+    <div class="secao-loja">
+        <h2 class="titulo-secao" style="color: var(--cor-primaria); margin: 2rem 0 1rem 0; border-bottom: 1px solid var(--cor-borda); padding-bottom: 0.5rem;">
+            <i class="bi bi-person-badge"></i> Perfil & Estilo
+        </h2>
+        <div class="grid-itens">
+            {% for item in secao_customizacao %}
+                {% include "home/loja/card_item_include.html" %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if secao_cores %}
+    <div class="secao-loja">
+        <h2 class="titulo-secao" style="color: var(--cor-primaria); margin: 2rem 0 1rem 0; border-bottom: 1px solid var(--cor-borda); padding-bottom: 0.5rem;">
+            <i class="bi bi-palette"></i> Cores de Borda
+        </h2>
+        <div class="grid-itens">
+            {% for item in secao_cores %}
+                {% include "home/loja/card_item_include.html" %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if not secao_upgrades and not secao_customizacao and not secao_cores %}
+        <div class="loja-vazia">
+            <p>O mercador viajou para buscar novos itens. Volte mais tarde!</p>
+        </div>
+    {% endif %}
+
+    <a href="{% url 'home:lista_Tarefas' %}" class="btn-voltar">
+        &larr; Voltar para Tarefas
+    </a>
+
+</div>
+{% endblock %}

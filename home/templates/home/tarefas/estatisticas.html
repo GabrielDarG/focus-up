@@ -1,0 +1,327 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Minhas Estatísticas - FocusUP{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'home/css/estatisticas.css' %}?v=14" />
+    
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px; 
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .stats-container {
+            max-width: 1400px; 
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .ai-review-section {
+            background: linear-gradient(135deg, #2a2f42 0%, #1f2333 100%);
+            border: 1px solid var(--cor-borda);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: sticky;
+            top: 100px; 
+            height: fit-content;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .ai-review-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .ai-avatar-glow {
+            width: 80px;
+            height: 80px;
+            background: rgba(90, 72, 245, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            border: 2px solid var(--cor-primaria);
+            box-shadow: 0 0 15px rgba(90, 72, 245, 0.3);
+        }
+
+        .ai-icon {
+            font-size: 2rem;
+            color: var(--cor-primaria);
+        }
+
+        .ai-title {
+            font-family: "Poppins", sans-serif;
+            font-weight: 700;
+            color: var(--cor-texto-principal);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-gerar-review {
+            background: var(--gradiente-moderno);
+            border: none;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .btn-gerar-review:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(90, 72, 245, 0.4);
+        }
+
+        .btn-gerar-review:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .ai-result-container {
+            margin-top: 1.5rem;
+            text-align: left;
+            font-style: italic;
+            color: var(--cor-texto-secundario);
+            line-height: 1.5;
+            background: rgba(0,0,0,0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--cor-destaque);
+            display: none;
+            width: 100%;
+        }
+
+        .ai-tip-container {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-style: normal;
+        }
+        
+        .ai-tip-title {
+            color: #ffc93e;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr; 
+            }
+            .ai-review-section {
+                position: static; 
+                order: -1; 
+            }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="stats-container">
+    
+    <h1 class="titulo-stats">Estatísticas</h1>
+
+    <div class="dashboard-grid">
+        
+        <div class="stats-left-col">
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-valor">{{ total_concluidas }}</span>
+                    <span class="stat-legenda">Tarefas Concluídas (Total)</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-valor" style="font-size: 2rem; word-break: break-word;">{{ foco_principal }}</span>
+                    <span class="stat-legenda">Foco Principal</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-valor">{{ concluidas_atraso }}</span>
+                    <span class="stat-legenda">Concluídas (Atraso)</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-valor">{{ streak }}</span>
+                    <span class="stat-legenda">Dias de Foco (Streak)</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-valor">{{ descartadas }}</span>
+                    <span class="stat-legenda">Tarefas Descartadas</span>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 2rem; margin-bottom: 3rem;">
+                
+                <div class="leaderboard-section" style="text-align: center; margin-bottom: 0; padding: 1.5rem;">
+                    {% if grafico_focos %}
+                        <div style="display: flex; justify-content: center;">
+                            <img src="data:image/png;base64,{{ grafico_focos }}" alt="Gráfico de Tarefas por Foco" style="max-width: 100%; border-radius: 12px;">
+                        </div>
+                    {% else %}
+                        <div style="padding: 2rem; color: var(--cor-texto-secundario);">
+                            <p>Conclua tarefas focadas para gerar este gráfico!</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="leaderboard-section" style="text-align: center; margin-bottom: 0; padding: 1.5rem;">
+                    {% if grafico_rosca %}
+                        <div style="display: flex; justify-content: center;">
+                            <img src="data:image/png;base64,{{ grafico_rosca }}" alt="Gráfico de Rosca Semanal" style="max-width: 100%; border-radius: 12px;">
+                        </div>
+                    {% else %}
+                        <div style="padding: 2rem; color: var(--cor-texto-secundario);">
+                            <p>Complete tarefas em dias diferentes para ver sua distribuição!</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="leaderboard-section" style="text-align: center; margin-bottom: 0; padding: 1.5rem;">
+                    {% if grafico_radar %}
+                        <div style="display: flex; justify-content: center;">
+                            <img src="data:image/png;base64,{{ grafico_radar }}" alt="Gráfico de Radar Turnos" style="max-width: 100%; border-radius: 12px;">
+                        </div>
+                    {% else %}
+                        <div style="padding: 2rem; color: var(--cor-texto-secundario);">
+                            <p>Complete tarefas para descobrir seu turno mais produtivo!</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="leaderboard-section">
+                <h2>Top 3 Amigos (XP)</h2>
+                {% if top_amigos %}
+                    <ul class="leaderboard-list">
+                        {% for amigo in top_amigos %}
+                        <li class="leaderboard-item {% if forloop.counter == 1 %}podium-1{% elif forloop.counter == 2 %}podium-2{% elif forloop.counter == 3 %}podium-3{% endif %}">
+                            <div class="friend-info">
+                                <span class="rank-number">#{{ forloop.counter }}</span>
+                                <div class="leaderboard-avatar-container">
+                                    {% if amigo.avatar %}
+                                        <img src="{{ amigo.avatar.url }}" alt="{{ amigo.nome_usuario }}" class="perfil-foto {{ amigo.get_moldura_ativa }} {{ amigo.get_cor_ativa }}">
+                                    {% else %}
+                                        <img src="{% static 'home/img/ue.png' %}" alt="Avatar Padrão" class="perfil-foto {{ amigo.get_moldura_ativa }} {{ amigo.get_cor_ativa }}">
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <strong class="nome-amigo">{{ amigo.nome_usuario }}</strong>
+                                    <span class="nivel-amigo">Nível {{ amigo.nivel }}</span>
+                                </div>
+                            </div>
+                            <div class="xp-badge">
+                                {{ amigo.xp_atual }} XP
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div style="text-align: center; padding: 2rem; color: var(--cor-texto-secundario);">
+                        <p>Você ainda não adicionou amigos para competir no ranking!</p>
+                        <a href="{% url 'home:listar_amigos' %}" class="botao-secundario" style="margin-top: 1rem;">Buscar Amigos</a>
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class="ai-review-section">
+            <div class="ai-review-header">
+                <div class="ai-avatar-glow">
+                    <i class="bi bi-robot ai-icon"></i>
+                </div>
+                <h3 class="ai-title">Análise Focus AI</h3>
+                <p style="font-size: 0.9rem; color: var(--cor-texto-secundario);">
+                    Solicite um feedback personalizado sobre seu desempenho atual.
+                </p>
+            </div>
+            
+            <button id="btn-gerar-review" class="btn-gerar-review">
+                <i class="bi bi-magic"></i> Gerar Análise
+            </button>
+
+            <div id="ai-result" class="ai-result-container">
+                <p id="ai-text-content">...</p>
+                
+                <div class="ai-tip-container">
+                    <span class="ai-tip-title"><i class="bi bi-lightbulb-fill"></i> Dica do Mestre:</span>
+                    <span id="ai-tip-content" style="font-size: 0.95rem;">...</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="margin-top: 3rem; margin-bottom: 3rem;">
+        <a href="{% url 'home:listar_amigos' %}" class="botao-secundario">← Voltar para Amigos</a>
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const btnGerar = document.getElementById('btn-gerar-review');
+        const resultContainer = document.getElementById('ai-result');
+        const textContent = document.getElementById('ai-text-content');
+        const tipContent = document.getElementById('ai-tip-content'); 
+
+        if (btnGerar) {
+            btnGerar.addEventListener('click', async function() {
+                btnGerar.disabled = true;
+                btnGerar.innerHTML = '<i class="bi bi-hourglass-split"></i> Analisando...';
+                resultContainer.style.display = 'none';
+
+                try {
+                    const response = await fetch("{% url 'home:api_gerar_review_ia' %}", {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({})
+                    });
+
+                    const data = await response.json();
+
+                    if (data.success) {
+                        textContent.innerText = `"${data.texto}"`;
+                        tipContent.innerText = data.dica; 
+                        
+                        resultContainer.style.display = 'block';
+                        
+                        if(data.humor === 'excelente') resultContainer.style.borderLeftColor = '#2ecc71';
+                        else if(data.humor === 'critico') resultContainer.style.borderLeftColor = '#e74c3c';
+                        else resultContainer.style.borderLeftColor = '#ffc93e';
+
+                        btnGerar.innerHTML = '<i class="bi bi-check-lg"></i> Análise Concluída';
+                    } else {
+                        alert("Erro ao gerar análise: " + data.error);
+                        btnGerar.disabled = false;
+                        btnGerar.innerHTML = '<i class="bi bi-magic"></i> Tentar Novamente';
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert("Erro de conexão.");
+                    btnGerar.disabled = false;
+                    btnGerar.innerHTML = '<i class="bi bi-magic"></i> Tentar Novamente';
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'home/css/estiloamigos.css' %}?v=5">
+{% endblock %}
+
+{% block content %}
+<div class="container-amigos">
+    <section class="secao">
+        <h1>Encontrar Amigos</h1>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mensagem {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="GET" action="" id="form-busca-amigos" class="form-busca">
+            <input 
+                type="text" 
+                name="q" 
+                id="input-busca-amigos" 
+                class="input-busca"
+                placeholder="Digite o nome de usuário ou nome real"
+                autocomplete="off"
+            >
+            <button type="submit" class="botao-link botao-destaque">Buscar</button>
+        </form>
+
+        <a href="{% url 'home:listar_amigos' %}" class="botao-link botao-secundario" style="margin-top: 1rem;">
+            &larr; Voltar para Meus Amigos
+        </a>
+
+        <hr class="divisor-amigos">
+
+        <div id="container-resultados-busca">
+            <p class="sem-resultados">
+                Digite um nome acima (mín. 2 letras) para buscar por novos amigos.
+            </p>
+        </div>
+
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'home/js/buscar_amigos.js' %}?v=1"></script>
+{% endblock extra_scripts %}

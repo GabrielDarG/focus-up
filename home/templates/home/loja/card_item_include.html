@@ -1,0 +1,103 @@
+<div class="card-item {% if not item.eh_consumivel %}item-raro{% endif %}">
+    
+    <div class="item-icon-wrapper {{ item.classe_css }}">
+        <i class="bi {{ item.icone_bootstrap }}"></i>
+    </div>
+
+    <div class="item-info">
+        <h3>{{ item.nome }}</h3>
+        <p class="item-desc">{{ item.descricao }}</p>
+        
+        <div class="item-meta">
+            {% if item.tipo_efeito == 'XP_BOOST' %}
+                <span class="tag-tipo consumivel">Duração: 24h</span>
+            {% elif item.tipo_efeito == 'MOLDURA' %}
+                <span class="tag-tipo permanente">Permanente</span>
+            {% elif item.tipo_efeito == 'AVATAR' %}
+                <span class="tag-tipo permanente">Permanente</span>
+            {% elif item.tipo_efeito == 'COR_BORDA' %}
+                <span class="tag-tipo permanente">Permanente</span>
+            {% elif item.eh_consumivel %}
+                <span class="tag-tipo consumivel">Consumível</span>
+            {% else %}
+                <span class="tag-tipo permanente">Permanente</span>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="item-footer">
+        
+        {% if item.esgotado_maximo %}
+             <div class="preco"><i class="bi bi-coin"></i> --</div>
+             <button class="btn-comprar btn-comprado" disabled>
+                Máximo Atingido <i class="bi bi-check-all"></i>
+             </button>
+
+        {% elif item.tipo_efeito == 'XP_BOOST' and item.no_inventario %}
+            {% if item.no_inventario.esta_ativo and item.no_inventario.data_expiracao_efeito > agora %}
+                 <div class="preco" style="color: var(--cor-verde-sucesso);">ATIVO ⚡</div>
+                 <button class="btn-comprar btn-comprado" disabled>
+                    Rodando...
+                 </button>
+            {% elif item.no_inventario.quantidade > 0 %}
+                 <div class="preco"><i class="bi bi-coin"></i> {{ item.preco }}</div>
+                 <button class="btn-comprar btn-comprado" disabled>
+                    Adquirido <i class="bi bi-check2"></i>
+                 </button>
+            {% else %}
+                 <div class="preco"><i class="bi bi-coin"></i> {{ item.preco }}</div>
+                 <form action="{% url 'home:comprar_item' item.id %}" method="POST">
+                    {% csrf_token %}
+                    {% if moedas_usuario >= item.preco %}
+                        <button type="submit" class="btn-comprar">Comprar</button>
+                    {% else %}
+                        <button type="button" class="btn-comprar btn-sem-saldo" disabled>Saldo Insuficiente</button>
+                    {% endif %}
+                 </form>
+            {% endif %}
+
+        {% elif item.tipo_efeito == 'MOLDURA' and item.no_inventario %}
+             <div class="preco"><i class="bi bi-coin"></i> {{ item.preco }}</div>
+             <button class="btn-comprar btn-comprado" disabled>
+                Adquirido <i class="bi bi-check2"></i>
+             </button>
+
+        {% elif item.tipo_efeito == 'COR_BORDA' and item.no_inventario %}
+             <div class="preco"><i class="bi bi-coin"></i> {{ item.preco }}</div>
+             <button class="btn-comprar btn-comprado" disabled>
+                Adquirido <i class="bi bi-check2"></i>
+             </button>
+
+        {% elif item.tipo_efeito == 'AVATAR' and item.no_inventario %}
+             <div class="preco"><i class="bi bi-coin"></i> {{ item.preco }}</div>
+             <button class="btn-comprar btn-comprado" disabled>
+                Adquirido <i class="bi bi-check2"></i>
+             </button>
+
+        {% elif item.no_inventario and not item.eh_consumivel and item.tipo_efeito != 'SLOT_EXTRA' %}
+             <div class="preco"><i class="bi bi-coin"></i> {{ item.preco }}</div>
+             <button class="btn-comprar btn-comprado" disabled>
+                Adquirido <i class="bi bi-check2"></i>
+             </button>
+
+        {% else %}
+            <div class="preco">
+                <i class="bi bi-coin"></i> {{ item.preco }}
+            </div>
+            
+            <form action="{% url 'home:comprar_item' item.id %}" method="POST">
+                {% csrf_token %}
+                {% if moedas_usuario >= item.preco %}
+                    <button type="submit" class="btn-comprar">
+                        Comprar
+                    </button>
+                {% else %}
+                    <button type="button" class="btn-comprar btn-sem-saldo" disabled>
+                        Saldo Insuficiente
+                    </button>
+                {% endif %}
+            </form>
+        {% endif %}
+
+    </div>
+</div>

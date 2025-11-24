@@ -1,0 +1,87 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'home/css/estilomain.css' %}" />
+    <title>FocusUP</title>
+  </head>
+  <body>
+    <header class="cabecalho">
+      <div class="nav_bar">
+        <div class="menu_hamburguer" id="menuBtn">☰</div>
+        <ul class="lista_nav" id="menuMobile">
+          <li><a href="#inicioID">Início</a></li>
+          <li><a href="{% url 'lista_Tarefas' %}">Meus Hábitos</a></li>
+
+          <li><a href="{% url 'listar_amigos' %}">Amigos</a></li>
+          <li>
+            <a href="{% url 'listar_pedidos_amizade' %}">Pedidos de Amizade</a>
+          </li>
+          <li><a href="#evolucaoID">Evolução</a></li>
+          <li><a href="#lojaID">Loja</a></li>
+          <li><a href="#configID">Configurações</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'logout' %}" class="btn_sair">Sair</a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <div class="div_logo">
+        <img
+          src="{% static 'home/img/Logo.png' %}"
+          alt="Logo"
+          class="logo_focus"
+        />
+      </div>
+
+      {% if user.is_authenticated %}
+      <div class="usuario_logado">
+        <p class="txt_usuario">Bem-vindo(a), {{ user.nome_usuario }}</p>
+
+        <div class="usuario_stats">
+          <div class="stat">
+            <span class="stat_label">Nível</span>
+            <span class="stat_valor">{{ user.nivel }}</span>
+          </div>
+          <div class="stat">
+            <span class="stat_label">XP</span>
+            <span class="stat_valor">{{ user.xp_atual }}</span>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </header>
+
+    <main class="conteudo">
+      <section id="inicioID" class="secao destaque">
+        <h1 class="titulo_main">FocusUP</h1>
+        <p id="frase_motivation" class="frase_motivation"></p>
+      </section>
+
+      <section id="tarefasID" class="secao">
+        <h2>Suas Tarefas</h2>
+        <p>Aqui vão aparecer as tarefas pendentes.</p>
+      </section>
+
+      <section id="evolucaoID" class="secao">
+        <h2>Sua Evolução</h2>
+        <p>Barras de XP, moedas e conquistas.</p>
+      </section>
+
+      <section id="lojaID" class="secao">
+        <h2>Loja</h2>
+        <p>Itens virtuais disponíveis para compra.</p>
+      </section>
+
+      <section id="configID" class="secao">
+        <h2>Configurações</h2>
+        <p>Preferências da sua conta.</p>
+      </section>
+    </main>
+
+    <script src="{% static 'home/js/menu_mobile.js' %}"></script>
+  </body>
+</html>

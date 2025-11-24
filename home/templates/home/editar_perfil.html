@@ -1,0 +1,95 @@
+{% extends "home/base.html" %} 
+{% load static %} 
+
+{% block title %}Editar Perfil - FocusUP{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'home/css/editar_perfil.css' %}?v=5" />
+{% endblock %}
+
+{% block content %}
+    <main class="main_editar_perfil"> 
+        <div class="container_form_editar"> 
+            
+            {% if messages %}
+            <div class="mensagens_django">
+                {% for message in messages %}
+                <div class="alerta alerta_{{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <h1 class="titulo_editar_perfil">Editar Perfil</h1> 
+            <p class="subtitulo_editar_perfil">Atualize suas informações pessoais.</p>
+
+            
+            <form class="form_editar_perfil" method="POST" enctype="multipart/form-data"> 
+                {% csrf_token %}
+
+                <div class="campo_formulario_avatar">
+                    <label>Foto de Perfil</label>
+                    <div class="avatar-upload-container">
+                        {# A foto do perfil vem do HEADER do base.html. Aqui mostramos a prévia. #}
+                        {% if user.avatar %}
+                            <img src="{{ user.avatar.url }}" alt="Avatar Atual" class="avatar-preview">
+                        {% else %}
+                            <img src="{% static 'home/img/icon.png' %}" alt="Avatar Padrão" class="avatar-preview">
+                        {% endif %}
+                        <div class="avatar-upload-input">
+                            {{ form.avatar }} 
+                            <label for="{{ form.avatar.id_for_label }}" class="botao-upload-avatar">
+                                Escolher novo arquivo
+                            </label>
+                            <span id="file-name-display" class="file-name">Nenhum arquivo selecionado</span>
+                            {% if form.avatar.errors %}<div class="erro_campo">{{ form.avatar.errors }}</div>{% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="campo_formulario">
+                    <label for="{{ form.nome.id_for_label }}" class="label_formulario">Nome completo</label>
+                    {{ form.nome }} 
+                    {% if form.nome.errors %}<div class="erro_campo">{{ form.nome.errors }}</div>{% endif %}
+                </div>
+
+                <div class="campo_formulario">
+                    <label for="{{ form.nome_usuario.id_for_label }}" class_formulario="label_formulario">Nome de usuário</label>
+                    {{ form.nome_usuario }} 
+                    {% if form.nome_usuario.errors %}<div class="erro_campo">{{ form.nome_usuario.errors }}</div>{% endif %}
+                </div>
+
+                <div class="campo_formulario">
+                    <label for="id_email" class="label_formulario">E-mail</label>
+                    <input type="email" id="id_email" value="{{ user.email }}" class="input_travado" disabled>
+                    <small class="texto_ajuda">O e-mail não pode ser alterado (é sua ID de login).</small>
+                </div>
+
+                <div class="campo_formulario">
+                    <label for="{{ form.sexo.id_for_label }}" class="label_formulario">Sexo</label>
+                    {{ form.sexo }} 
+                    {% if form.sexo.errors %}<div class="erro_campo">{{ form.sexo.errors }}</div>{% endif %}
+                </div>
+
+                <div class="campo_formulario">
+                    <label for="{{ form.data_nascimento.id_for_label }}" class="label_formulario">Data de nascimento</label>
+                    {{ form.data_nascimento }} 
+                    {% if form.data_nascimento.errors %}<div class="erro_campo">{{ form.data_nascimento.errors }}</div>{% endif %}
+                </div>
+
+                <button type="submit" class="botao_salvar_perfil">Salvar Alterações</button> 
+            </form>
+            
+            <div class="links_auxiliares_editar_perfil">
+                <p class="texto_voltar">
+                    <a href="{% url 'home:home' %}" class="link_voltar">Voltar para Home</a>
+                </p>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script src="{% static 'home/js/editar_perfil.js' %}?v=3"></script> 
+{% endblock %}

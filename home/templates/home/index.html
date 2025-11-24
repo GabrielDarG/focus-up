@@ -1,0 +1,195 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FocusUP - Gamifique sua Vida</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="{% static 'home/css/estilo.css' %}?v=21" />
+  </head>
+  <body>
+    
+    <nav class="barra-navegacao">
+      <div class="conteiner conteiner-nav">
+        <a href="#" class="logo">
+            <img src="{% static 'home/img/LogoOFC.png' %}" alt="Logo FocusUP" class="img-logo-nav">
+        </a>
+        
+        <div class="menu-toggle" id="menu-mobile-btn">
+          <span class="barra"></span>
+          <span class="barra"></span>
+          <span class="barra"></span>
+        </div>
+
+        <ul class="menu-nav">
+          <li class="item-nav"><a href="#como-funciona" class="link-nav">Como Funciona</a></li>
+          <li class="item-nav"><a href="#loja" class="link-nav">Loja & Recompensas</a></li>
+          
+          <li class="conteiner-botoes-nav">
+            <a href="{% url 'home:login' %}" class="botao-nav botao-login">Entrar</a>
+            <a href="{% url 'home:cadastro' %}" class="botao-nav botao-cadastro">Criar Conta</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <section class="secao-apresentacao" id="inicio">
+      <div class="fundo-brilho"></div>
+      <div class="fundo-grade"></div>
+
+      <div class="conteiner conteudo-apresentacao">
+        <div class="texto-apresentacao">
+          <span class="selo-novo">✨ Novo jeito de se organizar</span>
+          <h1 class="titulo-apresentacao">
+            Seu dia a dia em <br />
+            <span class="texto-gradiente">Modo Campanha</span>
+          </h1>
+          <p class="subtitulo-apresentacao">
+            O FocusUP transforma suas tarefas chatas em missões de RPG. 
+            Ganhe XP, suba de nível, colete moedas e compre upgrades reais para sua produtividade.
+          </p>
+          <div class="botoes-apresentacao">
+            <a href="{% url 'home:cadastro' %}" class="botao-acao">Começar Aventura</a>
+            </div>
+        </div>
+        
+        <div class="visual-apresentacao">
+            <div class="cartao-flutuante cartao-moedas">
+                <div class="rotulo-estatistica">Moedas</div>
+                <div class="valor-estatistica-ouro"><i class="bi bi-coin"></i> 250</div>
+            </div>
+            <div class="cartao-flutuante cartao-nivel">
+                <div class="circulo-nivel">24</div>
+                <div class="texto-nivel">Nível Atual</div>
+            </div>
+            <div class="forma-flutuante forma-1"></div>
+            <div class="forma-flutuante forma-2"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao-como-funciona" id="como-funciona">
+      <div class="conteiner">
+        <div class="cabecalho-secao">
+            <h2 class="titulo-secao">Domine o Sistema</h2>
+            <p class="descricao-secao">Uma metodologia de 3 passos para garantir que você nunca mais perca o foco.</p>
+        </div>
+
+        <div class="conteiner-passos">
+            <div class="cartao-passo">
+                <div class="numero-passo">01</div>
+                <div class="caixa-icone"><i class="bi bi-person-lines-fill"></i></div>
+                <h3>Defina seus Focos</h3>
+                <p>
+                    Personalize seu perfil. Diga à IA quais são seus objetivos em 
+                    <strong>Saúde, Estudos, Trabalho e Casa</strong>. O sistema aprende com você.
+                </p>
+            </div>
+
+            <div class="seta-passo"><i class="bi bi-chevron-right"></i></div>
+
+            <div class="cartao-passo passo-destaque">
+                <div class="numero-passo">02</div>
+                <div class="caixa-icone"><i class="bi bi-list-check"></i></div>
+                <h3>O Motor de Slots</h3>
+                <p>
+                    Você tem um limite diário para manter o foco:
+                    <br><br>
+                    <span class="texto-destaque">3 Slots Manuais:</span> Para suas tarefas recorrentes.<br>
+                    <span class="texto-destaque">6 Slots de IA:</span> Quests geradas automaticamente.
+                </p>
+            </div>
+
+            <div class="seta-passo"><i class="bi bi-chevron-right"></i></div>
+
+            <div class="cartao-passo">
+                <div class="numero-passo">03</div>
+                <div class="caixa-icone"><i class="bi bi-trophy-fill"></i></div>
+                <h3>Conquiste & Lucre</h3>
+                <p>
+                    Complete as tarefas antes que o dia acabe. Ganhe <strong>XP</strong> para subir de nível e 
+                    <strong>Moedas</strong> para gastar na loja do jogo.
+                </p>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao-loja" id="loja">
+        <div class="conteiner">
+            <div class="layout-loja">
+                <div class="texto-loja">
+                    <span class="selo-loja">O Mercador</span>
+                    <h2 class="titulo-secao">Gaste suas Moedas</h2>
+                    <p>
+                        Suas conquistas valem ouro. Utilize as moedas que você ganha completando missões 
+                        para adquirir vantagens poderosas que facilitam sua jornada.
+                    </p>
+                    <ul class="lista-beneficios">
+                        <li><i class="bi bi-check-circle-fill"></i> Itens consumíveis de uso único</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Upgrades permanentes de conta</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Customização de Avatar</li>
+                    </ul>
+                    <a href="{% url 'home:cadastro' %}" class="botao-acao botao-loja">Crie sua Conta e Jogue!</a>
+                </div>
+
+                <div class="grade-itens-loja">
+                    <div class="cartao-item">
+                        <div class="icone-item"><i class="bi bi-snow2"></i></div>
+                        <div class="info-item">
+                            <h4>Congelador</h4>
+                            <p>Protege sua ofensiva se falhar um dia.</p>
+                        </div>
+                        <div class="preco-item"><i class="bi bi-coin"></i> 500</div>
+                    </div>
+                    
+                    <div class="cartao-item item-raro">
+                        <div class="icone-item"><i class="bi bi-lightning-charge-fill"></i></div>
+                        <div class="info-item">
+                            <h4>Dobro de XP</h4>
+                            <p>Acelere sua evolução por 24h.</p>
+                        </div>
+                        <div class="preco-item"><i class="bi bi-coin"></i> 1200</div>
+                    </div>
+
+                    <div class="cartao-item item-epico">
+                        <div class="icone-item"><i class="bi bi-plus-square-fill"></i></div>
+                        <div class="info-item">
+                            <h4>Slot Extra</h4>
+                            <p>Adicione +1 espaço permanente.</p>
+                        </div>
+                        <div class="preco-item"><i class="bi bi-coin"></i> 5000</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="chamada-final">
+      <div class="conteiner">
+        <h2>Sua jornada começa agora</h2>
+        <p>Pare de tratar sua vida como uma lista de afazeres chata.</p>
+        <a href="{% url 'home:cadastro' %}" class="botao-acao botao-grande">Criar Conta Grátis</a>
+      </div>
+    </section>
+
+    <footer class="rodape">
+      <div class="conteiner">
+        <p>&copy; 2025 FocusUP. Todos os direitos reservados.</p>
+        <p class="creditos">Projeto desenvolvido por estudantes da UNICID</p>
+      </div>
+    </footer>
+
+    <script src="{% static 'home/js/index_animation.js' %}?v=20"></script>
+  </body>
+</html>

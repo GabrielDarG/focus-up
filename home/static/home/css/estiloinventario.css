@@ -1,0 +1,279 @@
+
+/* VARIÁVEIS (Consistentes com o projeto) */
+
+:root {
+    --cor-fundo: #161a25;
+    --cor-secao: #1f2333;
+    --cor-texto-principal: #f8f9fa;
+    --cor-texto-secundario: #a9b1d6;
+    --cor-borda: #343b58;
+    --cor-primaria: #5a48f5;
+    --cor-destaque: #ffc93e;
+    --cor-sucesso: #28a745;
+    --cor-erro: #ff6b6b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background-color: var(--cor-fundo); color: var(--cor-texto-principal); font-family: 'Lato', sans-serif; }
+
+.inventario-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.inventario-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--cor-borda);
+    padding-bottom: 2rem;
+}
+
+.inventario-header h1 {
+    font-family: 'Poppins', sans-serif;
+    color: var(--cor-texto-principal);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.subtitulo {
+    color: var(--cor-texto-secundario);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.nav-botoes {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-nav {
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.btn-loja {
+    background-color: var(--cor-destaque);
+    color: #212529;
+}
+.btn-tarefas {
+    background-color: transparent;
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto-secundario);
+}
+.btn-nav:hover { transform: translateY(-2px); }
+.btn-tarefas:hover { color: var(--cor-texto-principal); border-color: var(--cor-texto-principal); }
+
+.grid-inventario {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.card-inv {
+    background-color: var(--cor-secao);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    transition: border-color 0.2s;
+}
+.card-inv:hover {
+    border-color: var(--cor-primaria);
+}
+
+.card-inv.item-permanente {
+    border: 1px solid #9b59b6; 
+    box-shadow: 0 0 10px rgba(155, 89, 182, 0.1);
+}
+.card-inv.item-permanente .inv-icon-wrapper {
+    color: #9b59b6;
+    background: rgba(155, 89, 182, 0.1);
+}
+
+.inv-icon-wrapper {
+    width: 70px;
+    height: 70px;
+    background: rgba(90, 72, 245, 0.1);
+    color: var(--cor-primaria);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    transition: all 0.3s ease; 
+}
+
+.badge-qtd {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--cor-texto-principal);
+    color: #212529;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+.badge-qtd.perm {
+    background-color: #9b59b6;
+    color: white;
+}
+
+.inv-info h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--cor-texto-principal);
+}
+.inv-info p {
+    font-size: 0.85rem;
+    color: var(--cor-texto-secundario);
+    line-height: 1.4;
+    margin-bottom: 1.5rem;
+}
+
+.inv-action {
+    margin-top: auto;
+    width: 100%;
+}
+.btn-inv {
+    width: 100%;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+.btn-usar {
+    background-color: var(--cor-primaria);
+    color: white;
+    transition: background 0.2s;
+}
+.btn-usar:hover { background-color: #4636c5; }
+
+.btn-passivo {
+    background-color: transparent;
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto-secundario);
+    cursor: default;
+    opacity: 0.7;
+}
+
+.btn-ativo {
+    background-color: rgba(40, 167, 69, 0.1);
+    border: 1px solid var(--cor-sucesso);
+    color: var(--cor-sucesso);
+    cursor: default;
+}
+
+.inventario-vazio {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 0;
+}
+.icon-vazio { font-size: 4rem; color: var(--cor-borda); margin-bottom: 1rem; }
+.inventario-vazio h2 { margin-bottom: 0.5rem; }
+.btn-cta-loja {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.8rem 2rem;
+    background-color: var(--cor-destaque);
+    color: #212529;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+.mensagens-container { margin-bottom: 2rem; }
+.mensagem {
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: rgba(90, 72, 245, 0.1);
+    border: 1px solid var(--cor-primaria);
+    color: var(--cor-texto-principal);
+    display: flex; align-items: center; gap: 0.5rem;
+}
+
+
+/* Vermelho */
+.inv-icon-wrapper.borda-vermelha {
+    background: rgba(255, 71, 87, 0.15) !important;
+    color: #ff4757 !important;
+    border: 1px solid rgba(255, 71, 87, 0.3);
+    box-shadow: 0 0 10px rgba(255, 71, 87, 0.2);
+}
+
+/* Azul */
+.inv-icon-wrapper.borda-azul {
+    background: rgba(30, 144, 255, 0.15) !important;
+    color: #1e90ff !important;
+    border: 1px solid rgba(30, 144, 255, 0.3);
+    box-shadow: 0 0 10px rgba(30, 144, 255, 0.2);
+}
+
+/* Verde */
+.inv-icon-wrapper.borda-verde {
+    background: rgba(46, 213, 115, 0.15) !important;
+    color: #2ed573 !important;
+    border: 1px solid rgba(46, 213, 115, 0.3);
+    box-shadow: 0 0 10px rgba(46, 213, 115, 0.2);
+}
+
+/* Roxo Neon (Cyberpunk) */
+.inv-icon-wrapper.borda-roxa {
+    background: rgba(165, 94, 234, 0.15) !important;
+    color: #a55eea !important;
+    border: 1px solid rgba(165, 94, 234, 0.3);
+    box-shadow: 0 0 10px rgba(165, 94, 234, 0.2);
+}
+
+/* Dourado */
+.inv-icon-wrapper.borda-dourada {
+    background: rgba(255, 165, 2, 0.15) !important;
+    color: #ffa502 !important;
+    border: 1px solid rgba(255, 165, 2, 0.3);
+    box-shadow: 0 0 10px rgba(255, 165, 2, 0.2);
+}
+
+/* --- ÍCONE TÓXICO NO INVENTÁRIO --- */
+.inv-icon-wrapper.moldura-toxica {
+    background: rgba(46, 213, 115, 0.1) !important;
+    color: #2ed573 !important;
+    border: 2px solid rgba(46, 213, 115, 0.5);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: gosma-radioativa 4s ease-in-out infinite;
+    box-shadow: 0 0 15px rgba(46, 213, 115, 0.4);
+}
+
+@keyframes gosma-radioativa {
+    0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+
+
+@media (max-width: 600px) {
+    .grid-inventario { grid-template-columns: 1fr; }
+}

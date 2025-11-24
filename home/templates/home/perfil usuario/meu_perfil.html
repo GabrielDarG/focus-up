@@ -1,0 +1,106 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Meus Perfis de Foco - FocusUP{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'home/css/estiloperfil.css' %}?v=3" />
+{% endblock extra_head %}
+
+{% block content %}
+
+        <section class="secao">
+            <h2>Meus Perfis de Foco</h2>
+            <div class="container-seletor-perfil">
+                <select id="seletor-perfil" class="seletor-perfil-dropdown">
+                    <option value="">Selecione um perfil para gerenciar...</option>
+                    {% for value, label in form.foco_nome.field.choices %}
+                        {% if value %}
+                            <option value="{{ value }}">{{ label }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div id="container-dinamico-perfil">
+                <div id="exibicao-perfil" class="exibicao-perfil-detalhes">
+                    <p class="perfil-vazio-js">Selecione um perfil acima.</p>
+                </div>
+                
+                <div id="secao-formulario" style="display: none;">
+                    <form method="POST" id="perfil-foco-form">
+                        {% csrf_token %}
+                        
+                        <div class="campo-form campo-foco-nome-oculto">
+                            {{ form.foco_nome.label_tag }}
+                            {{ form.foco_nome }}
+                            {{ form.foco_nome.errors }}
+                        </div>
+
+                        <div id="campos-academia" class="campos-especificos">
+                            <h4>Detalhes da Academia</h4>
+                            <div class="campo-form">{{ form.altura.label_tag }} {{ form.altura }} {{ form.altura.errors }}</div>
+                            <div class="campo-form">{{ form.peso.label_tag }} {{ form.peso }} {{ form.peso.errors }}</div>
+                            <div class="campo-form">{{ form.nivel_treino.label_tag }} {{ form.nivel_treino }} {{ form.nivel_treino.errors }}</div>
+                            <div class="campo-form">{{ form.local_treino.label_tag }} {{ form.local_treino }} {{ form.local_treino.errors }}</div>
+                            <div class="campo-form">{{ form.freq_treino.label_tag }} {{ form.freq_treino }} {{ form.freq_treino.errors }}</div>
+                            <div class="campo-form">{{ form.objetivo_academia.label_tag }} {{ form.objetivo_academia }} {{ form.objetivo_academia.errors }}</div>
+                        </div>
+
+                        <div id="campos-estudos" class="campos-especificos">
+                            <h4>Detalhes dos Estudos</h4>
+                            <div class="campo-form">{{ form.tipo_estudante.label_tag }} {{ form.tipo_estudante }} {{ form.tipo_estudante.errors }}</div>
+                            <div class="campo-form">{{ form.periodo_preferido_estudo.label_tag }} {{ form.periodo_preferido_estudo }} {{ form.periodo_preferido_estudo.errors }}</div>
+                            <div class="campo-form">{{ form.area_estudo.label_tag }} {{ form.area_estudo }} {{ form.area_estudo.errors }}</div>
+                        </div>
+
+                        <div id="campos-trabalho" class="campos-especificos">
+                            <h4>Detalhes do Trabalho</h4>
+                            <div class="campo-form">{{ form.modalidade_trabalho.label_tag }} {{ form.modalidade_trabalho }} {{ form.modalidade_trabalho.errors }}</div>
+                            <div class="campo-form">{{ form.area_trabalho.label_tag }} {{ form.area_trabalho }} {{ form.area_trabalho.errors }}</div>
+                            <div class="campo-form">{{ form.cargo_atual.label_tag }} {{ form.cargo_atual }} {{ form.cargo_atual.errors }}</div>
+                        </div>
+                        
+                        <div id="campos-saude" class="campos-especificos">
+                            <h4>Detalhes da Saúde</h4>
+                            <div class="campo-form">{{ form.acompanhamento_medico.label_tag }} {{ form.acompanhamento_medico }} {{ form.acompanhamento_medico.errors }}</div>
+                            <div class="campo-form">{{ form.objetivo_saude.label_tag }} {{ form.objetivo_saude }} {{ form.objetivo_saude.errors }}</div>
+                            <div class="campo-form">{{ form.restricao_alimentar.label_tag }} {{ form.restricao_alimentar }} {{ form.restricao_alimentar.errors }}</div>
+                        </div>
+
+                        <div id="campos-casa" class="campos-especificos">
+                            <h4>Detalhes da Casa</h4>
+                            <div class="campo-form">{{ form.tipo_moradia.label_tag }} {{ form.tipo_moradia }} {{ form.tipo_moradia.errors }}</div>
+                            <div class="campo-form">{{ form.mora_sozinho.label_tag }} {{ form.mora_sozinho }} {{ form.mora_sozinho.errors }}</div>
+                            <div class="campo-form">{{ form.tarefa_principal_casa.label_tag }} {{ form.tarefa_principal_casa }} {{ form.tarefa_principal_casa.errors }}</div>
+                        </div>
+
+                        <div id="campos-lazer" class="campos-especificos">
+                            <h4>Detalhes do Lazer</h4>
+                            <div class="campo-form">{{ form.freq_lazer.label_tag }} {{ form.freq_lazer }} {{ form.freq_lazer.errors }}</div>
+                            <div class="campo-form">{{ form.tipo_lazer_preferido.label_tag }} {{ form.tipo_lazer_preferido }} {{ form.tipo_lazer_preferido.errors }}</div>
+                            <div class="campo-form">{{ form.hobby_principal.label_tag }} {{ form.hobby_principal }} {{ form.hobby_principal.errors }}</div>
+                        </div>
+
+                        <div class="campo-form"> 
+                            {{ form.detalhes.label_tag }}
+                            {{ form.detalhes }}
+                            {{ form.detalhes.errors }}
+                        </div>
+
+                        <div class="botoes-formulario">
+                            <button type="submit" class="submit-button">Salvar Perfil</button>
+                            <button type="button" id="botao-cancelar-js" class="cancel-button">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    {{ perfis_atuais_dict|json_script:"perfis-data" }}
+{% endblock content %}
+
+{% block extra_scripts %}
+    <script src="{% static 'home/js/meuperfil.js' %}?v=3"></script>
+{% endblock extra_scripts %}

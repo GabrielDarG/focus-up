@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="{% static 'home/css/estilo.css' %}" />
+
+    <title>{% block title %}FocusUP{% endblock %}</title>
+  </head>
+  <body>
+    <header class="cabecalho">
+      <div class="nav_bar">
+        <div class="menu_hamburguer" id="menuBtn">☰</div>
+        <ul class="lista_nav" id="menuMobile">
+          <li><a href="{% url 'home:index' %}#inicioID">Inicio</a></li>
+          <li>
+            <a href="{% url 'home:index' %}#sobre_jogoID">Sobre o FocusUP</a>
+          </li>
+          <li><a href="{% url 'home:index' %}#sobre_nosID">Sobre Nós</a></li>
+        </ul>
+      </div>
+
+      <div class="div_logo">
+        <a href="{% url 'home:index' %}">
+          <img
+            src="{% static 'home/img/Logo.png' %}"
+            alt="Logo"
+            class="logo_focus"
+          />
+        </a>
+      </div>
+
+      <div class="botoes_cad_login">
+        <a href="{% url 'home:login' %}" class="botao_login">Login</a>
+        <a href="{% url 'home:cadastro' %}" class="botao_cad">Cadastre-se</a>
+      </div>
+    </header>
+
+    {% block content %} {% endblock %}
+
+    <footer class="Rodape">
+      <div class="contate_nos"></div>
+    </footer>
+
+    <script src="{% static 'home/js/banner_troca.js' %}"></script>
+    <script src="{% static 'home/js/menu_mobile.js' %}"></script>
+  </body>
+</html>

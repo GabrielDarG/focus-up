@@ -1,0 +1,36 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'home/css/estiloamigos.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-amigos">
+    <section class="secao">
+        <h1>Pedidos de Amizade Pendentes</h1>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% if pedidos %}
+            <ul class="lista-simples">
+                {% for pedido in pedidos %}
+                    <li>
+                        <span><strong>{{ pedido.de_usuario.nome_usuario }}</strong> quer ser seu amigo.</span>
+                        <div class="botoes-pedido">
+                            <a href="{% url 'home:aceitar_pedido_amizade' pedido.id %}" class="botao-link botao-sucesso botao-pequeno">Aceitar</a>
+                            <a href="{% url 'home:recusar_remover_amizade' pedido.id %}" class="botao-link botao-perigo botao-pequeno">Recusar</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="sem-resultados">Você não tem pedidos de amizade pendentes.</p>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Termos de Uso - FocusUP</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="{% static 'home/css/estilotermos.css' %}" />
+  </head>
+  <body>
+    <div class="termos-container">
+      <div class="termos-logo">
+        <img src="{% static 'home/img/LogoOFC.png' %}" alt="Logo FocusUP" />
+      </div>
+
+      <h1 class="termos-titulo">Termos de Uso</h1>
+
+      <div class="termos-conteudo">
+        <p>
+          Bem-vindo ao FocusUP! Ao utilizar nossa plataforma, você concorda com
+          os seguintes termos de uso:
+        </p>
+        <ul>
+          <li>
+            Você é responsável pelo conteúdo que criar ou compartilhar no
+            aplicativo.
+          </li>
+          <li>
+            O FocusUP não se responsabiliza por danos ou perdas decorrentes do
+            uso da plataforma.
+          </li>
+          <li>
+            É proibido utilizar a plataforma para fins ilegais ou que violem
+            direitos de terceiros.
+          </li>
+          <li>
+            Nós reservamos o direito de alterar, suspender ou encerrar contas em
+            caso de violação destes termos.
+          </li>
+          <li>
+            As regras podem ser atualizadas periodicamente, então verifique esta
+            página regularmente.
+          </li>
+        </ul>
+
+        <p>
+          Recomendamos que leia com atenção e volte sempre que precisar revisar
+          os termos da plataforma.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

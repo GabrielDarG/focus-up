@@ -1,0 +1,212 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Minhas Tarefas - FocusUP{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'home/css/estilotarefas.css' %}?v=203" />
+    <style>
+        .sem-foco-container {
+            background-color: rgba(255, 201, 62, 0.1);
+            border: 1px solid var(--cor-destaque);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .sem-foco-titulo {
+            color: var(--cor-destaque);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        .sem-foco-texto {
+            color: var(--cor-texto-secundario);
+            margin-bottom: 1.5rem;
+        }
+    </style>
+{% endblock extra_head %}
+
+{% block content %}
+    <div class="container-tarefas" 
+         data-ajax-url-gerar="{% url 'home:adicionar_Tarefas' %}" 
+         data-ajax-url-salvar="{% url 'home:adicionar_Tarefas' %}" 
+         data-csrf-token="{{ csrf_token }}"
+         
+         data-ajax-url-status-geracao-ia="{% url 'home:api_status_geracao_ia' %}"
+         
+         data-slots-pessoais-usados="{{ slots_usados }}"
+         data-slots-pessoais-limite="{{ slots_limite }}"
+         data-slots-ia-usados="{{ slots_ia_usados }}"
+         data-slots-ia-limite="{{ slots_ia_limite }}"
+    >
+        
+        <h1>Minhas Tarefas</h1>
+
+        <div class="contadores-slots-wrapper">
+            <div class="contador-slots-container" id="contador-slots-pessoais-container">
+                <h3 class="contador-titulo">Slots Pessoais (Manuais)</h3>
+                <div class="contador-visual" id="contador-slots-pessoais-visual">
+                    {{ slots_usados }} / {{ slots_limite }}
+                </div>
+            </div>
+
+            <div class="contador-slots-container" id="contador-slots-ia-container">
+                <h3 class="contador-titulo">Slots da IA (Quests Diárias)</h3>
+                <div class="contador-visual" id="contador-slots-ia-visual">
+                    {{ slots_ia_usados }} / {{ slots_ia_limite }}
+                </div>
+            </div>
+        </div> 
+
+        {% if not tem_focos %}
+            <div class="sem-foco-container">
+                <h2 class="sem-foco-titulo"><i class="bi bi-exclamation-triangle"></i> Você ainda não tem Focos!</h2>
+                <p class="sem-foco-texto">
+                    Para que a Inteligência Artificial possa gerar suas missões diárias, 
+                    você precisa cadastrar pelo menos um Perfil de Foco (ex: Estudos, Trabalho, Saúde).
+                </p>
+                <a href="{% url 'home:meu_perfil' %}" class="botao-destaque">
+                    <i class="bi bi-plus-circle"></i> Cadastrar Meu Primeiro Foco
+                </a>
+            </div>
+        
+        {% else %}
+            
+            {% if slots_ia_usados == 0 %}
+            <div class="secao-geracao-ia" id="ia-loading-container">
+                <div class="ia-loading-spinner" id="ia-loading-spinner"></div>
+                <div class="feedback-container-ia">
+                    <h2 class="titulo-geracao-ia">Gerando Quests Diárias...</h2>
+                    <p class="feedback-geracao-ia" id="ia-loading-feedback">[0/{{ slots_ia_limite }}] Missões geradas...</p>
+                </div>
+            </div>
+            {% endif %}
+            
+            <a href="{% url 'home:adicionar_Tarefas' %}" class="link-adicionar link-botao" style="margin-bottom: 1rem;">
+                Gerenciar Tarefas Pessoais (Recorrentes)
+            </a>
+            
+            {% if slots_usados < slots_limite %}
+            <div id="area-adicionar-tarefas-manual"> 
+                <section class="secao-sugestao-ia">
+                    <h2>Sugestão Rápida Manual (Usa 1 Slot Pessoal)</h2>
+                    <div class="container-gerar-ia-lista">
+                        <select id="seletor-foco-ia-lista" aria-label="Selecione o perfil de foco para a IA">
+                            <option value="">Selecione um Foco...</option>
+                            {% for perfil in perfis_usuario %}
+                                <option value="{{ perfil.foco_nome }}">{{ perfil.foco_nome|capfirst }}</option>
+                            {% endfor %}
+                        </select>
+                        <button id="botao-gerar-ia-lista" class="botao-gerar-ia-lista" disabled>Sugerir Tarefa</button>
+                    </div>
+                    <div id="area-sugestao-lista" style="display: none;">
+                    </div>
+                    <div id="feedback-ia-lista"></div>
+                    <div class="botoes-sugestao">
+                        <button id="botao-aceitar-lista" class="botao-aceitar-lista">Adicionar</button>
+                        <button id="botao-dispensar-lista" class="botao-dispensar-lista">Dispensar</button>
+                    </div>
+                </section>
+            </div>
+            {% else %}
+            <div class="limite-slots-mensagem" id="limite-slots-pessoais-mensagem">
+                <p>Você atingiu seu limite de 3 tarefas pessoais por hoje!</p>
+                <p>Novos slots estarão disponíveis após o reset diário.</p>
+            </div>
+            {% endif %}
+            
+            <h2 class="titulo-secao-lista">Tarefas de Hoje</h2>
+            <ul class="lista-tarefas" id="lista-tarefas-ul">
+                {% for tarefa in tarefas %}
+                
+                <li class="item-tarefa {% if tarefa.falhou %}tarefa-falhada{% endif %} {% if tarefa.tipo_tarefa == 'IA_DIARIA' %}tarefa-ia{% endif %}" id="tarefa-{{ tarefa.id_Tarefa }}">
+                    
+                    <div class="tarefa-info">
+                        <span class="tarefa-titulo"> 
+                            {{ tarefa.titulo }} 
+                        </span>
+                        
+                        <div class="tarefa-detalhes">
+                            
+                            <div class="info-bloco xp-bloco">
+                                <span class="info-valor">
+                                    {{ tarefa.xp|default:0 }} XP 
+                                    <span style="margin: 0 5px; opacity: 0.6;">|</span> 
+                                    <span style="color: #ffc93e; font-weight: bold;">100 <i class="bi bi-coin"></i></span>
+                                </span>
+                            </div>
+                            
+                            {% if tarefa.foco %}
+                            <div class="info-bloco foco-bloco">
+                                <span class="info-label">Foco</span>
+                                <span class="info-valor">{{ tarefa.foco.foco_nome|capfirst }}</span>
+                            </div>
+                            {% endif %}
+                            
+                            {% if tarefa.descricao %} 
+                                <p class="task-description-full">
+                                    {{ tarefa.descricao }}
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    {% if tarefa.falhou %}
+                        <div class="botoes-tarefa-container">
+                            <form method="POST" action="{% url 'home:descartar_tarefa' tarefa.id_Tarefa %}" class="formulario-descartar">
+                                {% csrf_token %}
+                                <button type="submit" class="botao-tarefa botao-descartar">
+                                    Descartar
+                                </button>
+                            </form>
+                            <form method="POST" action="{% url 'home:concluir_atrasado' tarefa.id_Tarefa %}" class="formulario-concluir-atrasada">
+                                {% csrf_token %}
+                                <button type="submit" class="botao-tarefa botao-concluir-atrasada">
+                                    Concluir (sem XP)
+                                </button>
+                            </form>
+                        </div>
+                    
+                    {% else %}
+                        <form method="POST" action="{% url 'home:concluir_tarefa' tarefa.id_Tarefa %}" class="formulario-concluir">
+                            {% csrf_token %}
+                            <button type="submit" class="botao-tarefa botao-concluir">
+                                Concluir
+                            </button>
+                        </form>
+                    {% endif %}
+                    
+                </li>
+                {% empty %}
+                <li class="item-tarefa-vazia" id="lista-tarefas-vazia">
+                    <p>Você ainda não tem tarefas para hoje.</p>
+                    <p>Crie tarefas recorrentes ou aguarde suas Quests Diárias!</p>
+                </li>
+                {% endfor %}
+            </ul>
+        
+        {% endif %} </div>
+
+    {% if mostrar_popup_congelador %}
+    <div class="popup-overlay" id="popup-congelador">
+        <div class="popup-card">
+            <div class="popup-icon-container">
+                <i class="bi bi-snow2 popup-icon"></i>
+            </div>
+            <h2>Ofensiva Salva!</h2>
+            <p>Você perdeu um dia, mas o seu <strong>Congelador de Ofensiva</strong> entrou em ação e protegeu seu streak.</p>
+            <button class="popup-btn" onclick="fecharPopup()">Ufa, obrigado!</button>
+        </div>
+    </div>
+    <script>
+        function fecharPopup() {
+            document.getElementById('popup-congelador').style.display = 'none';
+        }
+    </script>
+    {% endif %}
+    {% endblock content %}
+
+{% block extra_scripts %}
+    <script src="{% static 'home/js/lista_tarefas_ai.js' %}?v=103"></script>
+{% endblock extra_scripts %}

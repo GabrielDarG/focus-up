@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - FocusUP</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="{% static 'home/css/estilologin.css' %}?v=10" />
+  </head>
+  <body>
+    
+    <div class="fundo-brilho"></div>
+    <div class="fundo-grade"></div>
+
+    <div class="pagina-login">
+        
+        <div class="cartao-login" id="cartao-login">
+            
+            <div class="cabecalho-login">
+                <a href="{% url 'home:index' %}" class="logo-link">
+                    <img src="{% static 'home/img/LogoOFC.png' %}" alt="Logo FocusUP" class="img-logo" />
+                </a>
+                <h1 class="titulo-login">Bem-vindo de volta!</h1>
+                <p class="subtitulo-login">Entre com sua conta para continuar sua jornada.</p>
+            </div>
+
+            <form action="" method="POST" class="form-login">
+                {% csrf_token %}
+
+                <div class="grupo-form">
+                    <label for="id_username" class="rotulo-form">Email ou Nome de Usuário</label>
+                    <div class="input-wrapper">
+                        <i class="bi bi-person input-icone-esquerda"></i>
+                        <input
+                            type="text"
+                            id="id_username"
+                            name="username"
+                            class="input-form"
+                            placeholder="Digite seu usuário"
+                            required
+                            autocomplete="username"
+                        />
+                    </div>
+                </div>
+
+                <div class="grupo-form">
+                    <div class="label-wrapper">
+                        <label for="id_password" class="rotulo-form">Senha</label>
+                        <a href="{% url 'password_reset' %}" class="link-esqueci">Esqueceu?</a>
+                    </div>
+                    <div class="input-wrapper">
+                        <i class="bi bi-lock input-icone-esquerda"></i>
+                        <input
+                            type="password"
+                            id="id_password"
+                            name="password"
+                            class="input-form"
+                            placeholder="Sua senha secreta"
+                            required
+                            autocomplete="current-password"
+                        />
+                        <i class="bi bi-eye-slash input-icone-direita" id="toggle-senha"></i>
+                    </div>
+                </div>
+
+                {% if form.non_field_errors %}
+                    <div class="alerta-erro">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        {{ form.non_field_errors.0 }}
+                    </div>
+                {% endif %}
+                
+                {% if erro %}
+                    <div class="alerta-erro">
+                        <i class="bi bi-exclamation-circle-fill"></i>
+                        {{ erro }}
+                    </div>
+                {% endif %}
+
+                <button type="submit" class="botao-entrar">
+                    Entrar <i class="bi bi-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="rodape-login">
+                <p>Não tem uma conta? <a href="{% url 'home:cadastro' %}" class="link-destaque">Crie agora</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'home/js/login_animation.js' %}?v=1"></script>
+  </body>
+</html>

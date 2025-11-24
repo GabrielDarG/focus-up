@@ -1,0 +1,260 @@
+
+/* CABEÇALHO - Mantido igual ao que você enviou */
+.cabecalho {
+  display: flex;
+  height: 5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 3.475rem;
+  flex-shrink: 0;
+  background-color: #484c9a;
+}
+
+.nav_bar {
+  display: flex;
+  width: 5rem;
+  height: 5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.menu_hamburguer {
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #ef0;
+}
+
+.lista_nav {
+  display: block;
+  list-style: none;
+  padding: 1.5rem 2rem;
+  margin: 0;
+  background: linear-gradient(180deg, #484c9a 0%, #3c3f88 100%);
+  position: absolute;
+  top: 5rem;
+  left: -100%;
+  width: 70%;
+  border-radius: 0 0.8rem 0.8rem 0;
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.4);
+  z-index: 999;
+  transition: left 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+.lista_nav.active {
+  left: 0;
+  opacity: 1;
+}
+
+.lista_nav li {
+  margin: 1.2rem 0;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 0.4rem;
+}
+
+.lista_nav li:last-child {
+  border-bottom: none;
+}
+
+.lista_nav a {
+  text-decoration: none;
+  color: #ef0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: block;
+  transition: color 0.3s, transform 0.2s;
+}
+
+.lista_nav a:hover {
+  color: #fff;
+  transform: translateX(5px);
+}
+
+.div_logo {
+  display: flex;
+  width: 5rem;
+  height: 5rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  aspect-ratio: 1 / 1;
+}
+.logo_focus {
+  width: 5rem;
+  height: 5rem;
+  flex-shrink: 0;
+  aspect-ratio: 1/1;
+}
+
+.usuario_logado {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.txt_usuario {
+  color: #ef0;
+  font-family: "Pixelify Sans";
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+/* CONTEÚDO PRINCIPAL */
+body {
+  margin: 0;
+  font-family: "Pixelify Sans", sans-serif;
+  background-color: #484c9a;
+  color: #fff;
+}
+
+.conteudo {
+  padding: 1rem;
+}
+
+.secao {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border-radius: 0.8rem;
+  background-color: rgba(60, 63, 136, 0.85);
+}
+
+.secao h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #f3e020;
+}
+
+.secao p {
+  font-size: 1rem;
+  line-height: 1.4rem;
+}
+
+.destaque {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #484c9a, #3c3f88);
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.titulo_main {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 1rem;
+  color: #ef0;
+  text-shadow: 2px 2px #000;
+}
+
+.frase_motivation {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 1px 1px #000;
+  position: relative;
+  display: inline-block;
+  transform: rotate(-2deg);
+  animation: pulsar 2s infinite alternate;
+}
+
+@keyframes pulsar {
+  0% {
+    transform: rotate(-2deg) scale(1);
+  }
+  50% {
+    transform: rotate(2deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(-2deg) scale(1);
+  }
+}
+
+
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #3a3a7a;
+  border-radius: 12px;
+  border: 1px solid #4a4a8a;
+}
+
+.form-container h2 {
+  color: #ffcc00;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-family: "Press Start 2P", sans-serif; 
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  color: #f0f0f0;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #2a2a5a;
+  border: 1px solid #4a4a8a;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 1rem;
+  box-sizing: border-box; 
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #ffcc00;
+  box-shadow: 0 0 5px #ffcc00;
+}
+
+.help-text {
+  margin-top: 0.75rem;
+  color: #b0b0d0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.help-text ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin: 0;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #ffcc00;
+  color: #2a2a5a;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+  background-color: #e6b800;
+}
+
+.form-errors,
+.field-errors {
+  color: #ff4d4d;
+  background-color: rgba(255, 77, 77, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}

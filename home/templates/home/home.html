@@ -1,0 +1,118 @@
+{% extends 'home/base.html' %} 
+{% load static %} 
+
+{# --- BLOCO 1: TÍTULO --- #}
+{% block title %}FocusUP - Painel{% endblock %} 
+
+{# --- BLOCO 2: CONTEÚDO PRINCIPAL (Todo o seu HTML vai aqui) --- #}
+{% block content %} 
+    <div class="painel-container">
+        <main class="painel-principal">
+            
+            {# Bloco "Bem-vindo" #}
+            <section id="inicioID" class="secao destaque-gradiente">
+                <h1 class="titulo_main">Bem-vindo, {{ user.nome_usuario|default:user.email }}!</h1>
+                <p id="frase_motivation" class="frase_motivation">
+                    Continue sua jornada e conquiste seus objetivos.
+                </p>
+            </section>
+
+            {# Bloco "Tarefas" #}
+            <section id="tarefasID" class="secao">
+                <h2>Suas Tarefas</h2>
+                <p>Aqui vão aparecer as tarefas pendentes.</p>
+                <a href="{% url 'home:lista_Tarefas' %}" class="botao-destaque">
+                    Ver todas as tarefas
+                </a>
+            </section>
+
+            {# Bloco "Evolução" #}
+            <section id="evolucaoID" class="secao">
+                <h2>Sua Evolução</h2>
+                
+                <div class="barra-progresso">
+                    <small id="progresso-level-texto">Progresso Nível {{ user.nivel }}</small>
+                    
+                    <div class="xp-valores">
+                        <span id="progresso-xp-atual">{{ xp_usuario|default:0 }} XP</span>
+                        <span id="progresso-xp-necessario">{{ xp_necessario|default:100 }} XP</span>
+                    </div>
+
+                    <div class="barra-fundo">
+                        {% widthratio xp_usuario xp_necessario 100 as progresso_percentual %}
+                        <div class="barra-preenchimento" id="progresso-barra-preenchimento" style="width: {{ progresso_percentual }}%;">
+                            {{ progresso_percentual }}%
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="painel-lateral">
+            
+            {# Bloco "Perfil" #}
+            <div id="perfilID" class="secao bloco-usuario">
+                <div class="usuario-stats">
+                    <div class="stat-item">
+                        <span class="stat-numero" id="xp-total-display">{{ user.xp_atual|default:0 }}</span>
+                        <small class="stat-label">XP ATUAL</small>
+                    </div>
+                    <div class="stat-item"> 
+                        <span class="stat-numero" id="dias-foco-display">{{ user.dias_foco }}</span> 
+                        <small class="stat-label">DIAS DE FOCO</small>
+                    </div>
+                </div>
+            </div>
+
+            {# Botão "Resgatar Foco" #}
+            <div class="stat-item-foco-botao-wrapper">
+                {% if pode_resgatar %}
+                    <button class="botao-resgatar-foco" id="btn-resgatar-foco">
+                        Resgatar Foco (20xp)
+                    </button>
+                {% else %}
+                    <button class="botao-resgatar-foco" id="btn-resgatar-foco" disabled>
+                        Foco resgatado!
+                    </button>
+                {% endif %}
+            </div>
+
+            {# Bloco "Amigos" #}
+            <section id="amigosID" class="secao">
+                <h2>Amigos</h2>
+                <p>Veja seus amigos e pedidos pendentes.</p>
+                <a href="{% url 'home:listar_amigos' %}" class="botao-secundario" style="display: block; text-align: center;">
+                    Gerenciar Amigos
+                </a>
+            </section> 
+            
+            {# Bloco "Perfil Focos" (Agora no lugar certo na barra lateral) #}
+            <section id="perfilFocosID" class="secao">
+                <h2>Perfil Focos</h2>
+                <p>Configure seu perfil de foco</p>
+                {# 🚨 CORREÇÃO DE URL: Usando 'home:meu_perfil' que é o nome da URL #}
+                <a href="{% url 'home:meu_perfil' %}" class="botao-secundario">Configurar Perfil Focos</a>
+            </section>
+
+            {# Bloco "Configurações" #}
+            <section id="configID" class="secao">
+                <h2>Configurações</h2>
+                <p>Preferências da sua conta.</p>
+                <a href="{% url 'home:editar_perfil' %}" class="botao-secundario">Ajustar Conta</a>
+            </section>
+
+        </aside>
+    </div>
+{% endblock content %}
+
+
+{# --- BLOCO 3: SCRIPTS (AQUI ESTÁ A CORREÇÃO) --- #}
+{% block extra_scripts %}
+    <script type="application/json" id="js-data">
+{
+    "resgatarFocoUrl": "{% url 'home:resgatar_foco' %}",
+    "csrfToken": "{{ csrf_token }}"
+}
+</script>
+    {# O script homejs.js já é carregado no base.html. #}
+{% endblock extra_scripts %}

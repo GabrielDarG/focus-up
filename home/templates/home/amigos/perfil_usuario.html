@@ -1,0 +1,88 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'home/css/estiloamigos.css' %}?v=7">
+    {# Aumentei a versão para refletir as mudanças no CSS #}
+{% endblock %}
+
+{% block content %}
+<div class="container-amigos">
+    <section class="secao">
+
+        <div class="perfil-header">
+            {# 🚨 INÍCIO DA CORREÇÃO: Estrutura para incluir o Avatar #}
+            <div class="perfil-info-wrapper">
+                
+                {# 🚨 CORREÇÃO 1: Adiciona o Avatar do Amigo #}
+                <div class="avatar-amigo-container">
+                    {% if perfil.avatar %}
+                        <img src="{{ perfil.avatar.url }}" alt="Avatar de {{ perfil.nome_usuario }}" class="avatar-amigo">
+                    {% else %}
+                        <img src="{% static 'home/img/icon.png' %}" alt="Avatar Padrão" class="avatar-amigo">
+                    {% endif %}
+                </div>
+                
+                <div class="perfil-info">
+                    <h1>{{ perfil.nome_usuario }}</h1>
+                    <p>Nível {{ perfil.nivel }}</p>
+                </div>
+            </div>
+            {# 🚨 FIM DA CORREÇÃO: Avatar adicionado #}
+        </div>
+
+        <div class="barra-progresso" style="margin-top: 1rem;">
+            <small id="progresso-level-texto">Progresso Nível {{ perfil.nivel }}</small>
+            
+            <div class="xp-valores">
+                <span id="progresso-xp-atual">{{ perfil.xp_atual|default:0 }} XP</span>
+                <span id="progresso-xp-necessario">{{ perfil.xp_proximo_nivel|default:100 }} XP</span>
+            </div>
+
+            <div class="barra-fundo">
+{% widthratio perfil.xp_atual perfil.xp_proximo_nivel 100 as progresso_percentual %}
+                <div class="barra-preenchimento" id="progresso-barra-preenchimento" style="width: {{ progresso_percentual }}%;">
+                    {{ progresso_percentual }}%
+                </div>
+            </div>
+        </div>
+
+        <hr class="divisor-amigos">
+
+        <h2>Estatísticas</h2>
+        <div class="perfil-stats-grid">
+            
+            <div class="stat-card">
+                <span class="stat-card-numero">{{ tarefas_totais }}</span>
+                <span class="stat-card-label">Tarefas Concluídas (Total)</span>
+            </div>
+            
+            <div class="stat-card">
+                <span class="stat-card-numero">{{ tarefas_semana }}</span>
+                <span class="stat-card-label">Tarefas Concluídas (Semana)</span>
+            </div>
+            
+            {# 🚨 CORREÇÃO 2: Novo Card para Tarefas Atrasadas #}
+            <div class="stat-card">
+                <span class="stat-card-numero">{{ perfil.tarefas_concluidas_atrasadas_count|default:0 }}</span>
+                <span class="stat-card-label">Concluídas (Atraso)</span>
+            </div>
+            
+            <div class="stat-card">
+                <span class="stat-card-numero">{{ frequencia }}</span>
+                <span class="stat-card-label">Dias de Foco (Streak)</span>
+            </div>
+            
+            <div class="stat-card">
+                <span class="stat-card-numero">{{ perfil.tarefas_descartadas_count }}</span>
+                <span class="stat-card-label">Tarefas Descartadas</span>
+            </div>
+            
+        </div>
+
+        <a href="{% url 'home:listar_amigos' %}" class="botao-link botao-secundario" style="margin-top: 2rem;">
+            &larr; Voltar para Amigos
+        </a>
+    </section>
+</div>
+{% endblock %}

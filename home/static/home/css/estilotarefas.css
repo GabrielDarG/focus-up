@@ -1,0 +1,527 @@
+
+/* VARIÁVEIS DE COR (MODO ESCURO) */
+:root {
+  --cor-fundo: #161a25;
+  --cor-secao: #1f2333;
+  --cor-texto-principal: #f8f9fa;
+  --cor-texto-secundario: #a9b1d6;
+  --cor-borda: #343b58;
+  --cor-primaria: #5a48f5;
+  --cor-destaque: #ffc93e;
+  --cor-texto-preto: #212529;
+  --cor-branco: #ffffff;
+  --cor-verde-sucesso: #28a745;
+  --cor-texto-sucesso: #ffffff;
+  --cor-erro: #e74c3c;
+}
+
+/* CONFIGURAÇÕES GLOBAIS */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Lato", sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto-secundario);
+  line-height: 1.6;
+}
+
+/* --- Container Principal --- */
+.container-tarefas {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.container-tarefas h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  color: var(--cor-primaria);
+  font-size: 2.25rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.link-adicionar {
+    background-color: var(--cor-destaque);
+    color: var(--cor-texto-preto);
+    display: block;
+    text-align: center;
+}
+.link-botao {
+  display: inline-block;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.link-adicionar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(255, 201, 62, 0.4);
+}
+
+
+/* DASHBOARD LAYOUT */
+.dashboard-layout {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+/* Coluna Esquerda */
+.main-content {
+    flex: 2;
+    min-width: 0; 
+}
+
+/* Coluna Direita */
+.sidebar {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+/* WIDGETS DA SIDEBAR */
+.sidebar-widget {
+    background-color: var(--cor-secao);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.widget-title {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    color: var(--cor-texto-principal);
+    font-size: 1.1rem;
+    margin: 0 0 1rem 0;
+    text-align: center;
+}
+
+/*  Contadores de Slots */
+.contadores-slots-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contador-slots-container {
+    background-color: var(--cor-secao);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    text-align: center;
+    flex: 1; 
+}
+
+.contador-titulo {
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--cor-texto-secundario);
+    margin: 0 0 0.5rem 0;
+}
+
+.contador-visual {
+    font-family: "Poppins", sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--cor-destaque); 
+}
+
+/* Widget de Moedas */
+.moedas-widget {
+    border-color: var(--cor-destaque);
+    background: linear-gradient(135deg, var(--cor-secao) 0%, rgba(255, 201, 62, 0.05) 100%);
+    text-align: center;
+}
+.moedas-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+.icone-moeda { 
+    font-size: 2rem; 
+    color: var(--cor-destaque);
+}
+.valor-moedas {
+    font-family: "Poppins", sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--cor-destaque);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.link-loja-sidebar {
+    display: block;
+    text-align: center;
+    color: var(--cor-destaque);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    margin-top: 0.5rem;
+}
+.link-loja-sidebar:hover { text-decoration: underline; }
+
+
+/* SUGESTÃO RÁPIDA */
+.secao-sugestao-ia {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+.secao-sugestao-ia h2 {
+    display: none; 
+}
+.container-gerar-ia-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.container-gerar-ia-lista select {
+    padding: 0.6rem;
+    font-family: "Lato";
+    font-size: 0.9rem;
+    color: var(--cor-texto-principal);
+    background-color: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    width: 100%;
+}
+.botao-gerar-ia-lista {
+    padding: 0.6rem;
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-family: "Poppins";
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+.botao-gerar-ia-lista:hover { opacity: 0.85; }
+.botao-gerar-ia-lista:disabled { opacity: 0.5; cursor: not-allowed; }
+
+#area-sugestao-lista {
+    background-color: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--cor-texto-principal);
+}
+#feedback-ia-lista {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+#feedback-ia-lista.erro { color: var(--cor-erro); }
+#feedback-ia-lista.sucesso { color: var(--cor-verde-sucesso); }
+
+.botoes-sugestao {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+.botao-aceitar-lista, .botao-dispensar-lista {
+    display: none;
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+}
+.botao-aceitar-lista { background-color: var(--cor-verde-sucesso); color: white; border: none; }
+.botao-dispensar-lista { background-color: transparent; color: var(--cor-texto-secundario); border: 1px solid var(--cor-borda); }
+
+
+/* LOADING AUTOMÁTICO */
+.secao-geracao-ia {
+    background-color: var(--cor-secao);
+    border: 1px solid var(--cor-borda);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    
+    transition: opacity 0.5s ease-out;
+}
+.secao-geracao-ia.completo { opacity: 0.5; }
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.ia-loading-spinner {
+    width: 30px;
+    height: 30px;
+    border: 3px solid var(--cor-borda); 
+    border-top: 3px solid var(--cor-destaque); 
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    flex-shrink: 0; 
+}
+
+.feedback-container-ia {
+    display: flex;
+    flex-direction: column;
+}
+.titulo-geracao-ia {
+    font-family: "Poppins";
+    font-weight: 700;
+    color: var(--cor-texto-principal);
+    font-size: 1rem;
+    margin: 0 0 0.25rem 0;
+}
+.feedback-geracao-ia {
+    font-family: "Lato";
+    color: var(--cor-texto-secundario);
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+
+/* LISTA DE TAREFAS */
+.titulo-secao-lista {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--cor-primaria);
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--cor-borda);
+    margin-bottom: 1.5rem;
+}
+
+.lista-tarefas { list-style: none; padding: 0; }
+
+.item-tarefa {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  background-color: var(--cor-secao);
+  border: 1px solid var(--cor-borda);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: opacity 0.5s ease-out, transform 0.2s ease, box-shadow 0.2s ease; 
+  
+  border-left: 4px solid var(--cor-primaria); 
+}
+.item-tarefa:hover { 
+    transform: translateY(-3px); 
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); 
+}
+
+.item-tarefa.tarefa-ia {
+    border-left: 4px solid var(--cor-destaque);
+}
+
+.tarefa-info { flex-grow: 1; overflow: hidden; }
+
+.tarefa-titulo { 
+    font-family: "Poppins"; 
+    font-size: 1.25rem; 
+    font-weight: 600; 
+    color: var(--cor-texto-principal); 
+    display: block; 
+    transition: color 0.2s ease; 
+}
+
+.tarefa-detalhes {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Descrição da Tarefa */
+.task-description-full { 
+    font-size: 0.9rem; 
+    color: var(--cor-texto-secundario); 
+    margin: 0; 
+    line-height: 1.4; 
+    width: 100%;
+    margin-top: 0.5rem; 
+}
+
+
+/* --- Pílulas de XP --- */
+.info-bloco {
+  display: inline-flex; 
+  align-items: center;
+  padding: 4px 10px;       
+  border-radius: 20px;     
+}
+.info-label {
+  font-size: 0.8rem; 
+  color: var(--cor-primaria); 
+  margin-right: 5px;
+  font-weight: 600;   
+  text-transform: uppercase;
+}
+.info-valor {
+  font-size: 0.9rem; 
+  font-weight: 700;  
+  color: var(--cor-primaria); 
+}
+.xp-bloco {
+  background-color: rgba(90, 72, 245, 0.1); 
+  border: 1px solid rgba(90, 72, 245, 0.3); 
+}
+
+.formulario-concluir { flex-shrink: 0; }
+.botao-tarefa { 
+    font-family: "Poppins"; 
+    font-size: 0.9rem; 
+    font-weight: 600; 
+    padding: 0.6rem 1.25rem; 
+    border-radius: 8px; 
+    border: 2px solid transparent; 
+    cursor: pointer; 
+    transition: all 0.2s ease; 
+    white-space: nowrap; 
+}
+.botao-concluir { background-color: var(--cor-verde-sucesso); color: var(--cor-texto-sucesso); border-color: var(--cor-verde-sucesso); }
+.botao-concluir:hover { background-color: #218838; border-color: #218838; }
+.botao-desmarcar { background-color: transparent; color: var(--cor-texto-secundario); border-color: var(--cor-borda); }
+.botao-desmarcar:hover { background-color: var(--cor-secao); border-color: var(--cor-texto-secundario); color: var(--cor-texto-principal); }
+.botao-descartar { background-color: transparent; color: var(--cor-erro); border-color: rgba(231, 76, 60, 0.5); }
+.botao-descartar:hover { background-color: rgba(231, 76, 60, 0.1); border-color: var(--cor-erro); color: var(--cor-erro); }
+.botao-concluir-atrasada { background-color: transparent; color: var(--cor-texto-secundario); border-color: var(--cor-borda); }
+.botao-concluir-atrasada:hover { background-color: var(--cor-fundo); border-color: var(--cor-texto-secundario); color: var(--cor-texto-principal); }
+.botoes-tarefa-container { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; }
+
+
+.item-tarefa.concluida { opacity: 0.6; }
+.item-tarefa.concluida .tarefa-titulo { text-decoration: line-through; color: var(--cor-texto-secundario); }
+
+.item-tarefa-vazia { 
+    background-color: var(--cor-secao); 
+    border: 2px dashed var(--cor-borda); 
+    border-radius: 12px; 
+    padding: 2rem; 
+    text-align: center; 
+    color: var(--cor-texto-secundario); 
+}
+.item-tarefa-vazia p:first-child { font-family: "Poppins"; font-size: 1.1rem; font-weight: 600; color: var(--cor-texto-principal); }
+.limite-slots-mensagem { text-align: center; padding: 1rem; color: var(--cor-texto-secundario); border: 1px dashed var(--cor-borda); border-radius: 8px; margin-top: 1rem; }
+
+
+/* POPUP */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.popup-card {
+    background-color: var(--cor-secao);
+    border: 2px solid #00d2d3;
+    border-radius: 16px;
+    padding: 2.5rem;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 0 30px rgba(0, 210, 211, 0.3);
+    animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.popup-icon-container {
+    background-color: rgba(0, 210, 211, 0.1);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+}
+
+.popup-icon {
+    font-size: 3rem;
+    color: #00d2d3;
+}
+
+.popup-card h2 {
+    font-family: "Poppins", sans-serif;
+    color: var(--cor-texto-principal);
+    margin-bottom: 1rem;
+}
+
+.popup-card p {
+    color: var(--cor-texto-secundario);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.popup-btn {
+    background-color: #00d2d3;
+    color: #000;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    font-family: "Poppins", sans-serif;
+}
+.popup-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 210, 211, 0.5);
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+
+
+@media (max-width: 900px) {
+    .dashboard-layout {
+        flex-direction: column-reverse;
+    }
+    .sidebar { width: 100%; }
+    .contadores-slots-wrapper {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 600px) {
+    .item-tarefa {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        gap: 1rem;
+    }
+    .tarefa-detalhes { justify-content: center; }
+    .botoes-tarefa-container { justify-content: center; }
+    .formulario-concluir button, .botoes-tarefa-container button { width: 100%; }
+    
+    .contadores-slots-wrapper { flex-direction: column; }
+}
