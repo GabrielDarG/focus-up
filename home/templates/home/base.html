@@ -57,7 +57,7 @@
                     {% if user.avatar %}
                         <img src="{{ user.avatar.url }}" alt="Avatar do Usuário" class="perfil-foto {{ user.get_moldura_ativa }} {{ user.get_cor_ativa }}">
                     {% else %}
-                        <img src="{% static 'home/img/ue.png' %}" alt="Avatar Padrão" class="perfil-foto {{ user.get_moldura_ativa }} {{ user.get_cor_ativa }}">
+                        <img src="{% static 'home/img/icon.png' %}" alt="Avatar Padrão" class="perfil-foto {{ user.get_moldura_ativa }} {{ user.get_cor_ativa }}">
                     {% endif %}
                     
                     <span class="level-badge level-badge-display">
@@ -100,7 +100,7 @@
             {% if user.avatar %}
                 <img src="{{ user.avatar.url }}" alt="Avatar do Usuário" class="perfil-foto {{ user.get_moldura_ativa }} {{ user.get_cor_ativa }}">
             {% else %}
-                <img src="{% static 'home/img/ue.png' %}" alt="Avatar Padrão" class="perfil-foto {{ user.get_moldura_ativa }} {{ user.get_cor_ativa }}">
+                <img src="{% static 'home/img/icon.png' %}" alt="Avatar Padrão" class="perfil-foto {{ user.get_moldura_ativa }} {{ user.get_cor_ativa }}">
             {% endif %}
             
             <span>{{ user.nome_usuario|default:user.email }}</span>
