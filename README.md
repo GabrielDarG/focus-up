@@ -1,56 +1,88 @@
-# [NOME DO SEU PROJETO]
+# 🛡️ Focus Up
 
-![Status do Projeto](https://img.shields.io/badge/status-em_desenvolvimento-yellow)
-![Linguagem](https://img.shields.io/badge/python-3.9%2B-blue)
+![Status do Projeto](https://img.shields.io/badge/status-concluído_(TCC)-brightgreen)
+![Linguagem](https://img.shields.io/badge/python-3.10%2B-blue)
 ![Framework](https://img.shields.io/badge/django-092E20?style=for-the-badge&logo=django&logoColor=white)
-![Licença](https://img.shields.io/badge/licença-MIT-green)
+![AI](https://img.shields.io/badge/AI-Ollama-orange)
 
-> Breve slogan ou descrição de uma linha sobre o que seu projeto faz.
+> Transforme sua rotina em um RPG: complete missões, ganhe XP e evolua.
 
-Este projeto é [DESCRIÇÃO MAIS DETALHADA]. Ele resolve o problema de [PROBLEMA QUE RESOLVE] ao permitir que usuários [O QUE O USUÁRIO PODE FAZER].
+O **Focus Up** é uma plataforma de produtividade gamificada desenvolvida como Trabalho de Conclusão de Curso (TCC). Ele resolve o problema da **procrastinação** ao transformar tarefas cotidianas em missões de RPG, utilizando Inteligência Artificial (Ollama) para gerar desafios personalizados baseados nos interesses do usuário.
 
 ---
 
 ## 📖 Índice
 
-* [Sobre](#-sobre)
+* [Sobre a Aventura](#-sobre-a-aventura)
+* [Guia do Jogador (Funcionalidades)](#-guia-do-jogador-funcionalidades)
 * [Pré-requisitos](#-pré-requisitos)
 * [Instalação e Configuração](#-instalação-e-configuração)
 * [Como Rodar](#️-como-rodar)
 * [Tecnologias Utilizadas](#-tecnologias-utilizadas)
-* [Como Contribuir](#-como-contribuir)
 * [Licença](#-licença)
 
 ---
 
-## 📜 Sobre
+## 📜 Sobre a Aventura
 
-[Aqui você pode dar mais detalhes sobre o projeto, sua motivação, seus objetivos e funcionalidades principais. É um espaço para aprofundar a descrição inicial.]
+Diferente de listas de tarefas comuns que apenas cobram produtividade, o Focus Up recompensa o usuário instantaneamente. O sistema combina gestão de hábitos com lógica de jogos:
+
+1.  **IA Generativa:** O sistema lê o perfil do usuário e cria missões temáticas automaticamente.
+2.  **Economia Virtual:** Tarefas geram moedas para comprar itens cosméticos e funcionais.
+3.  **Sistema de Slots:** Limita a quantidade de tarefas para evitar sobrecarga (burnout), focando na qualidade da execução.
+
+---
+
+## 🎮 Guia do Jogador (Funcionalidades)
+
+Aqui está como o sistema funciona por dentro:
+
+### 1. O Objetivo & Perfil
+Tudo começa na página **"Perfil Focos"**. O usuário cadastra seus objetivos e interesses. Nossa Inteligência Artificial (Ollama) lê essas informações para criar o contexto do jogo.
+
+### 2. 🤖 Missões Diárias (IA)
+Todo dia, o sistema gera automaticamente **6 tarefas exclusivas (Quests Principais)** baseadas nos focos cadastrados. Elas renovam a cada 24 horas.
+
+### 3. 📅 Tarefas Pessoais & Sistema de Slots
+O usuário pode criar hábitos recorrentes (ex: "Ir à academia" toda Seg, Qua, Sex).
+* **A Regra dos Slots:** O usuário tem **3 Slots Pessoais** por dia inicialmente.
+* **Sorteio:** Se houver 5 tarefas agendadas para hoje, o sistema sorteará aleatoriamente apenas 3 para ocupar os slots, garantindo dinamismo.
+* **Sugestão Rápida:** Se sobrarem slots vazios, a IA pode sugerir uma tarefa extra na hora.
+
+### 4. 💰 Recompensas e Loja
+Ao completar uma tarefa, o jogador recebe:
+* ⭐ **XP Variável:** Para subir de nível.
+* 💰 **100 Moedas:** Valor fixo por tarefa.
+
+Na **Loja**, é possível comprar:
+* **Upgrades:** Até +3 slots extras de tarefas.
+* **Cosméticos:** Molduras e cores de perfil.
+* **Itens Mágicos:** Como o "Congelador de Ofensiva".
 
 ---
 
 ## 📋 Pré-requisitos
 
-Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+Antes de começar a aventura, você precisa ter instalado em sua máquina:
 
 * **[Git](https://git-scm.com)**
-* **[Python 3.9+](https://www.python.org/downloads/)**
-* **[pip](https://pip.pypa.io/en/stable/installation/)** (geralmente já vem com o Python)
+* **[Python 3.10+](https://www.python.org/downloads/)**
+* **[Ollama](https://ollama.com/)** (Para a geração de tarefas via IA)
 
 ---
 
 ## 🚀 Instalação e Configuração
 
-Siga os passos abaixo para configurar o ambiente de desenvolvimento local:
+Siga os passos abaixo para configurar o ambiente local:
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [URL_DO_SEU_REPOSITORIO_GIT]
+    git clone [https://github.com/GabrielDarG/focus-up.git](https://github.com/GabrielDarG/focus-up.git)
     ```
 
 2.  **Navegue até o diretório do projeto:**
     ```bash
-    cd [NOME_DA_PASTA_DO_PROJETO]
+    cd focus-up
     ```
 
 3.  **Crie e ative um ambiente virtual:**
@@ -65,48 +97,50 @@ Siga os passos abaixo para configurar o ambiente de desenvolvimento local:
         source venv/bin/activate
         ```
 
-4.  **Instale as dependências do projeto:**
+4.  **Instale as dependências:**
     ```bash
     pip install -r requirements.txt
     ```
 
-5.  **(Opcional) Configure as variáveis de ambiente:**
-    Se necessário, crie um arquivo `.env` a partir do `.env.example` e preencha os valores.
+5.  **Prepare o Banco de Dados:**
     ```bash
-    cp .env.example .env
+    python manage.py migrate
     ```
 
 ---
 
 ## ▶️ Como Rodar
 
-1.  **Inicie o servidor de desenvolvimento:**
-    Após seguir todos os passos de instalação e com o ambiente virtual ativado, execute o seguinte comando no terminal:
+1.  **Inicie o servidor:**
+    Com o ambiente virtual ativado, execute:
 
     ```bash
     python manage.py runserver
     ```
 
-2.  **Acesse a aplicação:**
-    Após executar o comando, o servidor de desenvolvimento será iniciado. Por padrão, você pode acessá-lo em seu navegador no seguinte endereço:
-
+2.  **Acesse o jogo:**
+    Abra seu navegador e acesse:
     [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-As seguintes ferramentas e tecnologias foram usadas na construção deste projeto:
+Ferramentas que deram vida ao projeto:
 
-* **Linguagem:** [Python](https://www.python.org/)
-* **Framework:** [Django](https://www.djangoproject.com/)
-* **Banco de Dados:** [Nome do Banco de Dados, ex: PostgreSQL, SQLite]
-* **Gerenciador de Pacotes:** [pip](https://pip.pypa.io/en/stable/)
-
+* **Back-end:** [Python](https://www.python.org/) & [Django](https://www.djangoproject.com/)
+* **Inteligência Artificial:** [Ollama](https://ollama.com/) (LLM Local)
+* **Front-end:** HTML5, CSS3 (Estilização personalizada)
+* **Banco de Dados:** SQLite (Padrão Django)
 
 ---
 
 ## 📝 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+Este projeto está sob a licença MIT. Sinta-se livre para contribuir!
 
+Feito por:
+**Gabriel Darcolette Gomes**,
+**Caio Aguiar Moutinho**,
+**Luan Oliveira Santana**,
+**Pedro Augusto Barbaroto dos Santos**. 
